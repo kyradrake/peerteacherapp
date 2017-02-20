@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="theme-color" content="#136D71"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+        <link rel="stylesheet" href="/assets/home.css" media="screen"/>
+    
+        <title>Peer Teacher Web Portal</title>
+    </head>
+    
+    <body>
+        <div id="search bar">
+            <sub-header>Search Bar</sub-header>
+        </div>
+        
+        <div id="course buttons">
+            <sub-header>CSCE Course Buttons</sub-header>
+        </div>
+        
+        <div class="w3-padding-16 w3-panel w3-center">
+            <div class="w3-btn-bar w3-border w3-show-inline-block">
+                <a href="#" class="w3-button">Available</a>
+                <a href="#" class="w3-button">All</a> 
+                <a href="#" class="w3-button">Schedule Changes</a>
+            </div>
+        </div>
+        
+        <table>
+          <tbody>
+            <% @peerTeachers.each do |pt| %>
+              <tr>
+                <td>
+                  <%= pt.netID  %>
+                </td>
+                <td>
+                  <%= pt.name %>
+                </td>
+                <td>
+                  <%= pt.courselist %>
+                </td>
+                <td>
+                  <%= pt.timelist %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        
+    </body>
+</html>
+

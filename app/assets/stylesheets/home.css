@@ -1,0 +1,28 @@
+body{
+	background-color:#222;
+}
+header{
+	font-size:60px;
+	color: #FFF;
+	font-family: sans-serif;
+}
+sub-header{
+	font-size:24px;
+	color: #FFF;
+	font-family: sans-serif;
+}
+view-button{
+    font-size:24px;
+    color: #FFF;
+    text-align: center;
+    font-family: sans-serif;
+}
+.card-header{
+    font-size: 40px;
+}
+.classes-available{
+    font-size: 24px;
+}
+.profile-img{
+    width:100%;
+}
