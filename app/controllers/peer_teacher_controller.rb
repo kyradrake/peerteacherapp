@@ -8,9 +8,56 @@ class PeerTeacherController < ApplicationController
     end
     
     def index
-        @peerTeachers = PeerTeacher.all
-        
-        url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
+        @peer_teachers = PeerTeacher.all
+    end
+   
+    def show
+        @peer_teacher = PeerTeacher.find(params[:id])
+    end
+   
+    def new
+        @peer_teacher = PeerTeacher.new
+        @office_hours = OfficeHour.all
+    end
+   
+    def create
+        @peer_teacher = PeerTeacher.new(peerTeacher_params)
+	
+        if @peer_teacher.save
+            redirect_to :action => 'list'
+        else
+            @office_hours = OfficeHour.all
+            render :action => 'new'
+        end
+    end
+   
+    def edit
+        @peer_teacher = PeerTeacher.find(params[:id])
+        @office_hours = OfficeHour.all
+    end
+   
+    def update
+        @peer_teacher = PeerTeacher.find(params[:id])
+	
+        if @peer_teacher.update_attributes(book_param)
+           redirect_to :action => 'show', :id => @peer_teacher
+        else
+           @office_hours = OfficeHour.all
+           render :action => 'edit'
+        end
+    end
+   
+    def delete
+        PeerTeacher.find(params[:id]).destroy
+        redirect_to :action => 'list'
+    end
+    
+    def show_office_hours
+        @office_hours = OfficeHour.find(params[:id])
+    end
+    
+    def populate_db
+       url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
         html = open(url)
         doc = Nokogiri::HTML(html)
         
@@ -48,51 +95,7 @@ class PeerTeacherController < ApplicationController
           )
           
            PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => day)
-        end
-    end
-   
-    def show
-        @peerTeacher = PeerTeacher.find(params[:id])
-    end
-   
-    def new
-        @peerTeacher = PeerTeacher.new
-        @officeHours = OfficeHour.all
-    end
-   
-    def create
-        @peerTeacher = PeerTeacher.new(peerTeacher_params)
-	
-        if @peerTeacher.save
-            redirect_to :action => 'list'
-        else
-            @officeHours = OfficeHour.all
-            render :action => 'new'
-        end
-    end
-   
-    def edit
-        @peerTeacher = PeerTeacher.find(params[:id])
-        @officeHours = OfficeHour.all
-    end
-   
-    def update
-        @peerTeacher = PeerTeacher.find(params[:id])
-	
-        if @peerTeacher.update_attributes(book_param)
-           redirect_to :action => 'show', :id => @peerTeacher
-        else
-           @officeHours = OfficeHour.all
-           render :action => 'edit'
-        end
-    end
-   
-    def delete
-        PeerTeacher.find(params[:id]).destroy
-        redirect_to :action => 'list'
-    end
-    
-    def show_officeHours
-        @officeHours = OfficeHour.find(params[:id])
+        end 
+        redirect_to home_index_path
     end
 end

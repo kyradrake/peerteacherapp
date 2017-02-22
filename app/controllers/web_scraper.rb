@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'json'
 
+
 url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
 html = open(url)
 doc = Nokogiri::HTML(html)

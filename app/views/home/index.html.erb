@@ -8,11 +8,16 @@
         
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
         <link rel="stylesheet" href="/assets/home.css" media="screen"/>
+        
+        <link href='//fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        
+        <script src="/assets/application.js"></script>
     
         <title>Peer Teacher Web Portal</title>
     </head>
     
     <body>
+        
         <div id="search bar">
             <sub-header>Search Bar</sub-header>
         </div>
@@ -22,34 +27,81 @@
         </div>
         
         <div class="w3-padding-16 w3-panel w3-center">
-            <div class="w3-btn-bar w3-border w3-show-inline-block">
-                <a href="#" class="w3-button">Available</a>
-                <a href="#" class="w3-button">All</a> 
-                <a href="#" class="w3-button">Schedule Changes</a>
+            <div class="w3-bar w3-show-inline-block">
+                <a href="#available" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showAvailableDiv()">Available</a>
+                <a href="#all" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showAllDiv()">All</a> 
+                <a href="#schedule" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showScheduleChangesDiv()">Schedule Changes</a>
             </div>
         </div>
         
+        <div style="color:white;">
+            <%= link_to 'Populate Database',  home_populate_db_path %>
+        </div>
+        
+        <h style="color:white;">Peer Teachers:</h>
         <table>
           <tbody>
-            <% @peerTeachers.each do |pt| %>
+            <% @peer_teachers.each do |pt| %>
               <tr>
-                <td>
+                <td style="color:white;">
                   <%= pt.netID  %>
                 </td>
-                <td>
+                <td style="color:white;">
                   <%= pt.name %>
                 </td>
-                <td>
+                <td style="color:white;">
                   <%= pt.courselist %>
                 </td>
-                <td>
+                <td style="color:white;">
                   <%= pt.timelist %>
                 </td>
               </tr>
             <% end %>
           </tbody>
         </table>
-
+        
+        <!--<h style="color:white;">Office Hours:</h>
+        <table>
+          <tbody>
+            <#% @office_hours.each do |oh| %>
+              <tr>
+                <td style="color:white;">
+                  <#%= oh.timeID  %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.netID %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.dow %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.sHour %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.sMin %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.hHour %>
+                </td>
+                <td style="color:white;">
+                  <#%= oh.hMin %>
+                </td>
+              </tr>
+            <#% end %>
+          </tbody>
+        </table>
+      -->
+      <div id="available view">
+          <sub-header>Available View</sub-header>
+      </div>
+      
+      <div id="all view" style="display: none">
+        <sub-header>All View</sub-header>
+      </div>
+      
+      <div id="schedule changes view" style="display: none">
+        <sub-header>Schedule Changes View</sub-header>
+      </div>
         
     </body>
 </html>

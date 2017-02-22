@@ -14,3 +14,30 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+function showAvailableDiv() {
+   document.getElementById("available view").style.display = "block";
+   
+   document.getElementById("all view").style.display = "none";
+   document.getElementById("schedule changes view").style.display = "none";
+   
+   return false;
+}
+
+function showAllDiv() {
+   document.getElementById("all view").style.display = "block";
+   
+   document.getElementById("available view").style.display = "none";
+   document.getElementById("schedule changes view").style.display = "none";
+   
+   return false;
+}
+
+function showScheduleChangesDiv() {
+   document.getElementById("schedule changes view").style.display = "block";
+   
+   document.getElementById("available view").style.display = "none";
+   document.getElementById("all view").style.display = "none";
+   
+   return false;
+}

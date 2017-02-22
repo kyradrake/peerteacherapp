@@ -1,28 +1,14 @@
 body{
-	background-color:#222;
+	background-color:#262626;
+	font-family: 'Open Sans';
 }
 header{
 	font-size:60px;
-	color: #FFF;
-	font-family: sans-serif;
+	color: #BFBFBF;
+	font-family: 'Open Sans';
 }
 sub-header{
 	font-size:24px;
-	color: #FFF;
-	font-family: sans-serif;
-}
-view-button{
-    font-size:24px;
-    color: #FFF;
-    text-align: center;
-    font-family: sans-serif;
-}
-.card-header{
-    font-size: 40px;
-}
-.classes-available{
-    font-size: 24px;
-}
-.profile-img{
-    width:100%;
+	color: #BFBFBF;
+	font-family: 'Open Sans';
 }
