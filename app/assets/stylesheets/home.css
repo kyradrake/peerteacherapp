@@ -12,3 +12,46 @@ sub-header{
 	color: #BFBFBF;
 	font-family: 'Open Sans';
 }
+.button{
+	background-color:#262626;
+	font-size:16px;
+	color:#BFBFBF;
+	padding: 16px;
+	border-radius: 8px;
+	border-collapse: separate; 
+	
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #BFBFBF; 
+    color:#0D0D0D;
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 8px;
+	border-collapse: separate;
+}
+input[type=text] {
+	width: 50%;
+	margin: 8px;
+	
+	background-color: #BFBFBF;
+    
+    font-family: 'Open Sans';
+    font-size: 16px;
+    color: #262626;
+}
+input[type=submit] {
+    width: 50%;
+    margin: 16px;
+    
+    background-color: #0D0D0D;
+    color: #BFBFBF;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}

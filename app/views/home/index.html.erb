@@ -17,20 +17,46 @@
     </head>
     
     <body>
-        
-        <div id="search bar">
+        <div id="header">
+          <!-- Search Bar -->
+          <div id="search bar">
             <sub-header>Search Bar</sub-header>
-        </div>
-        
-        <div id="course buttons">
+          </div>
+          
+          <!-- CSCE Course Buttons -->
+          <div id="course buttons">
             <sub-header>CSCE Course Buttons</sub-header>
+          </div>
+          
+          <!-- Login Button -->
+          <div id="login">
+            <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Login</a>
+          </div>
         </div>
         
-        <div class="w3-padding-16 w3-panel w3-center">
-            <div class="w3-bar w3-show-inline-block">
-                <a href="#available" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showAvailableDiv()">Available</a>
-                <a href="#all" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showAllDiv()">All</a> 
-                <a href="#schedule" class="w3-round w3-btn" style="color:#BFBFBF" onclick="showScheduleChangesDiv()">Schedule Changes</a>
+        <!-- Login Modal -->
+        <div id="login modal" class="w3-modal">
+          <div class="w3-modal-content w3-animate-zoom" style="background-color: #595959">
+            <div class="w3-container w3-center">
+              <span onclick="document.getElementById('login modal').style.display='none'" class="w3-closebtn w3-hover-text-grey" style="color: #BFBFBF">x</span>
+              
+              <div class = "w3-container w3-center" style="padding: 16px">
+                <sub-header>Login</sub-header>
+                <br/>
+                <input type="text" id="net ID" placeholder="Net ID"></input>
+                <input type="text" id="password" placeholder="Password"></input>
+                <input type="submit" value="Login" onclick="document.getElementById('login modal').style.display='none'">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- View Button Bar -->
+        <div class="w3-panel w3-center">
+            <div class="w3-show-inline-block">
+                <a id="available button" class="button" onclick="return showAvailableDiv()">Available</a>
+                <a id="all button" class="button" onclick="return showAllDiv()">All</a> 
+                <a id="schedule changes button" class="button" onclick="return showScheduleChangesDiv()">Schedule Changes</a>
             </div>
         </div>
         
@@ -91,14 +117,18 @@
           </tbody>
         </table>
       -->
+      
+      <!-- Available View -->
       <div id="available view">
           <sub-header>Available View</sub-header>
       </div>
       
+      <!-- All View -->
       <div id="all view" style="display: none">
         <sub-header>All View</sub-header>
       </div>
       
+      <!-- Schedule Changes View -->
       <div id="schedule changes view" style="display: none">
         <sub-header>Schedule Changes View</sub-header>
       </div>
