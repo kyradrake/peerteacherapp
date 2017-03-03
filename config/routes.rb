@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'home/populate_db'
   
   get '/ptc', to: 'ptc#ptc'
+  get '/admin', to: 'admin#admin'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
