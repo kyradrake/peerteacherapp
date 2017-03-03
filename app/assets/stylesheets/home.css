@@ -42,11 +42,12 @@ input[type=text] {
     font-size: 16px;
     color: #262626;
 }
+/*THIS WAS CAUSING AN ERROR FOR HEROKU PUSH
 input[type=text]:: placeholder {
     font-family: 'Open Sans';
     font-size: 16px;
     color: #262626;
-}
+}*/
 input[type=submit] {
     width: 50%;
     margin: 16px;

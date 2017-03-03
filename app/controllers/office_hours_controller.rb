@@ -1,2 +1,0 @@
-class OfficeHoursController < ApplicationController
-end

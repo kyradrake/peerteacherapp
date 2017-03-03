@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217192434) do
+ActiveRecord::Schema.define(version: 20170303201518) do
 
   create_table "office_hours", force: :cascade do |t|
     t.integer  "timeID"
