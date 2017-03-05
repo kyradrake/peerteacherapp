@@ -1,0 +1,2 @@
+module LoginHubHelper
+end

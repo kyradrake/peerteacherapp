@@ -5,6 +5,7 @@ require 'json'
 url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
 html = open(url)
 doc = Nokogiri::HTML(html)
+timeid = 100
 @tag_separator = ' -'
 
   people = []
@@ -15,13 +16,28 @@ doc = Nokogiri::HTML(html)
  
   #for class record
   doc.css('.record').each do |record|
-  imageURL = record.css('img').map{ |i| i['src'] }
+  imageURLlist = record.css('img').map{ |i| i['src'] }
+  imageURL = imageURLlist[0]
   name_el = record.css('h3')  
   name = name_el.text.strip 
-  email = record.css('h4 a').map{ |i| i['href'] }
-  courses = record.css('li').map { |course| course.text.strip.split(/(\s\d+)/) } 
-  courses = courses.map { |v| v[1] }
-  
+  emailList = record.css('h4 a').map { |i| i['href']}
+  newEmail = emailList[0]
+  if(newEmail)
+    newEmail = newEmail.split(/mailto:/)
+    email = newEmail[1]
+  end
+  allcourses = record.css('li').map { |course| course.text.strip.split(/(\d+)/) } 
+  allcourses = allcourses.map { |v| v[1] }
+  courses = ''
+  if(allcourses)
+    for j in 0..allcourses.size
+      if(allcourses[j])
+        courses += allcourses[j] + ','
+      end
+    end
+  end
+  timeList = ''
+
   #check for null here there's an empty person at the end, but this is maybe just nitpicking at this point
   sched = record.css('td').map { |days| days.text.strip } 
 
@@ -29,7 +45,7 @@ doc = Nokogiri::HTML(html)
     officehours = sched.shift(2)
     days = officehours[0].split(/(M|T|W|R|F|SU)/)
     days.delete("")
-    puts "officehours #{officehours}"
+    #puts "officehours #{officehours}"
   
     sh = []
     sm = []
@@ -64,6 +80,24 @@ doc = Nokogiri::HTML(html)
     eh = tmp[1][0..-3]
     em = tmp[1][-2..-1]
     
+    if (sh == '24')
+      sh = '12'
+    end
+    if(eh == '24')
+      eh = '12'
+    end
+    
+    #if (currDays)
+    days.each do |d|
+      puts d
+      puts sh
+      puts sm
+      puts eh
+      puts em
+    end
+  #end
+    
+    
     times = [sh, sm, eh, em]
     hrs = days.map{|d| [d] + times }
     copyhours = copyhours + hrs
@@ -71,15 +105,17 @@ doc = Nokogiri::HTML(html)
   
   allhours = copyhours[0,copyhours.length]
 
-  people.push(
-    name: name,
-    email: email,
-    imageURL: imageURL,
-    courses: courses,
-    allhours: allhours
-  )
+  if(email)
+    people.push(
+      name: name,
+      email: email,
+      imageURL: imageURL,
+      courses: courses,
+      allhours: allhours
+    )
+  end
   
   copyhours.clear
 end
 
-puts JSON.pretty_generate(people)
+#puts JSON.pretty_generate(people)

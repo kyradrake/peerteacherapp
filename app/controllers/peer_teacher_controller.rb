@@ -9,6 +9,7 @@ class PeerTeacherController < ApplicationController
     
     def index
         @peer_teachers = PeerTeacher.all
+        @office_hours = OfficeHour.all
     end
    
     def show
@@ -57,44 +58,111 @@ class PeerTeacherController < ApplicationController
     end
     
     def populate_db
-       url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
+        url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
         html = open(url)
         doc = Nokogiri::HTML(html)
+        timeid = 100
+        @tag_separator = ' -'
         
-        
-         people = []
-         day = []
-         #time =[]
-         doc.css('.record').each do |record|
-         imageURL =record.css('img').map{ |i| i['src'] }
-         #imageURL =record.xpath('//img/@src')
-         name_el = record.css('h3')  
-         name = name_el.text.strip 
-         email =record.css('h4 a').map{ |i| i['href'] }
-         courses = record.css('li').map { |course| course.text.strip } 
-         #day = record.css('td').text.strip
-         day = record.css('td').map { |da| da.text.strip } 
-         #time =record.css('td').text.strip
-         #dt =  doc.xpath('//*/table/tbody/tr').each do |td|
-         #dt << td.text
-         #end
-        
-        
-        #<tr>
-        #<td>W</td>
-        #<td>3:00 - 4:00 pm</td>
-        #</tr>
-        
-        
-          people.push(
-            name: name,
-            email: email,
-            imageURL: imageURL,
-            courses: courses,
-            day: day
-          )
+          people = []
+          sched = []
+          allhours = []
+          copyhours = []
+          time = []
+         
+          #for class record
+          doc.css('.record').each do |record|
+          imageURLlist = record.css('img').map{ |i| i['src'] }
+          imageURL = imageURLlist[0]
+          name_el = record.css('h3')  
+          name = name_el.text.strip 
+          emailList = record.css('h4 a').map { |i| i['href']}
+          newEmail = emailList[0]
+          if(newEmail)
+            newEmail = newEmail.split(/mailto:/)
+            email = newEmail[1]
+          end
+          allcourses = record.css('li').map { |course| course.text.strip.split(/(\d+)/) } 
+          allcourses = allcourses.map { |v| v[1] }
+          courses = ''
+          if(allcourses)
+            for j in 0..allcourses.size
+              if(allcourses[j])
+                courses += allcourses[j] + ','
+              end
+            end
+          end
+          timeList = ''
+
+          #check for null here there's an empty person at the end, but this is maybe just nitpicking at this point
+          sched = record.css('td').map { |days| days.text.strip } 
           
-           PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => day)
+          while sched.any?
+            officehours = sched.shift(2)
+            days = officehours[0].split(/(M|T|W|R|F|SU)/)
+            days.delete("")
+            #puts "officehours #{officehours}"
+          
+            sh = []
+            sm = []
+            eh = []
+            em = []
+          
+            tmp = officehours[1].split("-").map{|time| time.strip!.delete(":")}
+            if tmp[0].include? "am"
+              tmp[0].delete!("am").strip!
+            elsif tmp[0].include? "pm"
+              tmp[0].delete!("pm").strip!
+              tmp[0] = tmp[0].to_i > 1200 ? tmp[0] : (tmp[0].to_i + 1200).to_s
+            else 
+              if tmp[1].include? "pm"
+                tmp[1].delete!("pm").strip!
+                tmp[0] = tmp[0].to_i > 1200 ? tmp[0] : (tmp[0].to_i + 1200).to_s
+                tmp[1] = tmp[1].to_i > 1200 ? tmp[1] : (tmp[1].to_i + 1200).to_s
+              end
+              
+              if tmp[1].include? "am"
+                tmp[1].delete!("am").strip!
+              end
+            end
+            
+            if tmp[1].include? "pm"
+              tmp[1].delete!("pm").strip!
+              tmp[1] = tmp[1].to_i > 1200 ? tmp[1] : (tmp[1].to_i + 1200).to_s
+            end
+                
+            sh = tmp[0][0..-3]
+            sm = tmp[0][-2..-1]
+            eh = tmp[1][0..-3]
+            em = tmp[1][-2..-1]
+            
+            if (sh == '24')
+              sh = '12'
+            end
+            if(eh == '24')
+              eh = '12'
+            end
+            
+            days.each do |d| 
+                OfficeHour.create(:timeID => timeid, :netID => email, :dow => d, :sHour => sh, :sMin => sm, :eHour => eh, :eMin => em)
+            end
+            timeid += 1
+            timeList += timeid.to_s + ','
+            
+            times = [sh, sm, eh, em]
+            hrs = days.map{|d| [d] + times }
+            copyhours = copyhours + hrs
+          end
+          
+          allhours = copyhours[0,copyhours.length]
+          
+          copyhours.clear
+          
+          #need to edit the scraper here to first make an office hour and then add the IDs for a peer teacher's office hours to the peer teachers table
+          
+          if(name)
+            PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => timeList)
+          end
         end 
         redirect_to home_index_path
     end

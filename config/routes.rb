@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  devise_for :users
+  
+  
+  get 'login_hub/index'                 #the index is for the regular user 
+  get 'login_hub/admin'                 #for the admin page 
+  
   get 'home/index'
   get 'home/populate_db'
   

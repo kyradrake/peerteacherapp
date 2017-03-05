@@ -30,7 +30,8 @@
           
           <!-- Login Button -->
           <div id="login">
-            <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Login</a>
+            <%= link_to 'Login', login_hub_index_path %>
+            <!-- <a id="login button" class="button" style="float:right"  onclick="document.getElementById('login modal').style.display='block'"</a>>Login</a> -->
           </div>
         </div>
         
@@ -45,7 +46,7 @@
                 <br/>
                 <input type="text" id="net ID" placeholder="Net ID"></input>
                 <input type="text" id="password" placeholder="Password"></input>
-                <input type="submit" value="Login" onclick="document.getElementById('login modal').style.display='none'">
+                <input type="submit" value="Login" onclick="document.getElementById('login modal').style.display='none'"> 
               </div>
             </div>
           </div>
@@ -86,37 +87,37 @@
           </tbody>
         </table>
         
-        <!--<h style="color:white;">Office Hours:</h>
+        <h style="color:white;">Office Hours: (Just for debug)</h>
         <table>
           <tbody>
-            <#% @office_hours.each do |oh| %>
+            <% @office_hours.each do |oh| %>
               <tr>
                 <td style="color:white;">
-                  <#%= oh.timeID  %>
+                  <%= oh.timeID  %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.netID %>
+                  <%= oh.netID %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.dow %>
+                  <%= oh.dow %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.sHour %>
+                  <%= oh.sHour %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.sMin %>
+                  <%= oh.sMin %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.hHour %>
+                  <%= oh.eHour %>
                 </td>
                 <td style="color:white;">
-                  <#%= oh.hMin %>
+                  <%= oh.eMin %>
                 </td>
               </tr>
-            <#% end %>
+            <% end %>
           </tbody>
         </table>
-      -->
+      
       
       <!-- Available View -->
       <div id="available view">
