@@ -3,14 +3,11 @@ class LoginHubController < ApplicationController
   
   def index
     if user_signed_in? 
-      puts "Hello #{current_user.first_name}"
-    else
-      redirect_to home_index_path  
+      @user_name = "#{current_user.first_name}  #{current_user.last_name}"
+    elsif current_user.try(:admin?)
+      puts "Admin Working"
     end
   end
   
-  def admin 
-    puts "Admin is working"
-  end
   
 end

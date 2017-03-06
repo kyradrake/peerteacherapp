@@ -3,11 +3,15 @@ require 'open-uri'
 require 'json'
 
 class PeerTeacherController < ApplicationController
+    
     def peerTeacher_params
         params.require(:peerTeachers).permit(:netID, :name, :courselist, :timelist)
     end
     
     def index
+      if user_signed_in?
+        sign_out current_user
+      end
         @peer_teachers = PeerTeacher.all
         @office_hours = OfficeHour.all
     end
@@ -58,6 +62,10 @@ class PeerTeacherController < ApplicationController
     end
     
     def populate_db
+        #conn = ActiveRecord::Base.connection
+        #tables = ActiveRecord::Base.connection.tables
+        #tables.each { |t| conn.execute("TRUNCATE #{t}") }
+        
         url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
         html = open(url)
         doc = Nokogiri::HTML(html)

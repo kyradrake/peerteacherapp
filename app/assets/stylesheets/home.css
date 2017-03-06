@@ -1,6 +1,12 @@
+html {
+  height: 100%;
+  width: 100%;
+}
 body{
 	background-color:#262626;
 	font-family: 'Open Sans';
+	height: 100%;
+	width: 100%;
 }
 header{
 	font-size:60px;
@@ -19,6 +25,7 @@ sub-header{
 	padding: 16px;
 	border-radius: 8px;
 	border-collapse: separate; 
+	text-decoration: none;
 	
 	-webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -42,12 +49,6 @@ input[type=text] {
     font-size: 16px;
     color: #262626;
 }
-/*THIS WAS CAUSING AN ERROR FOR HEROKU PUSH
-input[type=text]:: placeholder {
-    font-family: 'Open Sans';
-    font-size: 16px;
-    color: #262626;
-}*/
 input[type=submit] {
     width: 50%;
     margin: 16px;
