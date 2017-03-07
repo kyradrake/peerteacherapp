@@ -90,13 +90,13 @@ timeid = 100
     end
     
     #if (currDays)
-    days.each do |d|
-      puts d
-      puts sh
-      puts sm
-      puts eh
-      puts em
-    end
+    #days.each do |d|
+      #puts d
+      #puts sh
+      #puts sm
+      #puts eh
+      #puts em
+    #end
   #end
     
     
@@ -120,4 +120,4 @@ timeid = 100
   copyhours.clear
 end
 
-puts JSON.pretty_generate(people)
+#puts JSON.pretty_generate(people)
