@@ -62,9 +62,10 @@ class PeerTeacherController < ApplicationController
     end
     
     def populate_db
-        #conn = ActiveRecord::Base.connection
-        #tables = ActiveRecord::Base.connection.tables
-        #tables.each { |t| conn.execute("TRUNCATE #{t}") }
+        PeerTeacher.delete_all
+        OfficeHour.delete_all
+        
+        Rails.logger.info("Db Updated at #{Time.now}")
         
         url = 'https://engineering.tamu.edu/cse/academics/peer-teachers/current-peer-teachers'
         html = open(url)
@@ -81,7 +82,9 @@ class PeerTeacherController < ApplicationController
           #for class record
           doc.css('.record').each do |record|
           imageURLlist = record.css('img').map{ |i| i['src'] }
-          imageURL = imageURLlist[0]
+          if(imageURLlist[0])
+            imageURL = "https://engineering.tamu.edu" + imageURLlist[0]
+          end
           name_el = record.css('h3')  
           name = name_el.text.strip 
           emailList = record.css('h4 a').map { |i| i['href']}
@@ -96,7 +99,11 @@ class PeerTeacherController < ApplicationController
           if(allcourses)
             for j in 0..allcourses.size
               if(allcourses[j])
-                courses += allcourses[j] + ','
+                if (j != (allcourses.size - 1))
+                  courses += allcourses[j] + ", "
+                else
+                  courses += allcourses[j]
+                end
               end
             end
           end
@@ -166,10 +173,8 @@ class PeerTeacherController < ApplicationController
           
           copyhours.clear
           
-          #need to edit the scraper here to first make an office hour and then add the IDs for a peer teacher's office hours to the peer teachers table
-          
           if(name)
-            PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => timeList)
+            PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
           end
         end 
         redirect_to home_index_path

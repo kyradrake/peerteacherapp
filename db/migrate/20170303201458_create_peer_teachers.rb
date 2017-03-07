@@ -5,6 +5,7 @@ class CreatePeerTeachers < ActiveRecord::Migration
       t.string :name
       t.string :courselist
       t.string :timelist
+      t.string :image
 
       t.timestamps null: false
     end

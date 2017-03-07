@@ -1,8 +1,9 @@
-body{
+html, body {
 	background-color:#262626;
 	font-family: 'Open Sans';
 }
-header{
+
+header {
 	font-size:48px;
 	color: #BFBFBF;
 	font-family: 'Open Sans';

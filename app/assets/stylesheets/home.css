@@ -1,25 +1,21 @@
-html {
-  height: 100%;
-  width: 100%;
-}
-body{
-	background-color:#262626;
+html, body {
+	background-color: #262626;
 	font-family: 'Open Sans';
 	height: 100%;
 	width: 100%;
 }
-header{
-	font-size:60px;
-	color: #BFBFBF;
-	font-family: 'Open Sans';
+
+header {
+  color: #BFBFBF;
 }
-sub-header{
+
+sub-header {
 	font-size:24px;
 	color: #BFBFBF;
-	font-family: 'Open Sans';
 }
-.button{
-	background-color:#262626;
+
+.button {
+	background-color: #262626;
 	font-size:16px;
 	color:#BFBFBF;
 	padding: 16px;
@@ -31,34 +27,90 @@ sub-header{
     transition-duration: 0.4s;
     cursor: pointer;
 }
+
 .button:hover {
-    background-color: #BFBFBF; 
-    color:#0D0D0D;
-    text-decoration: none;
-    padding: 16px;
-    border-radius: 8px;
+  background-color: #BFBFBF; 
+  color:#0D0D0D;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 8px;
 	border-collapse: separate;
 }
+
+container {
+  background-color: #0D0D0D;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/*card {
+  flex: 1;
+  height: 100px;
+  width: 200px;
+  border-radius: 0px;
+  margin: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #BFBFBF;
+  font-family: 'Open Sans';
+}*/
+
 input[type=text] {
 	width: 50%;
 	margin: 8px;
-	
 	background-color: #BFBFBF;
-    
-    font-family: 'Open Sans';
-    font-size: 16px;
-    color: #262626;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  color: #262626;
 }
+
 input[type=submit] {
-    width: 50%;
-    margin: 16px;
-    
-    background-color: #0D0D0D;
-    color: #BFBFBF;
-    font-family: 'Open Sans';
-    font-size: 16px;
-    
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+  width: 50%;
+  margin: 16px;
+  background-color: #0D0D0D;
+  color: #BFBFBF;
+  font-family: 'Open Sans';
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/*jaiden's stuff that kyra has not touched yet*/
+
+@media (min-width: 1600px) {
+  .container {
+    width: 1500px;
+  }
+} /* this is bootstrap stuff and might not actually be needed, delete if unnecessary */
+
+.card {
+  border: 2px solid;
+  margin: 5px;
+  padding: 20px;
+  background-color: #262626;
+	color:#BFBFBF;
+  height: 280px;
+}
+
+.short-card {
+  border: 2px solid;
+  margin: 5px;
+  padding: 20px;
+  background-color: #262626;
+  color: #BFBFBF;
+  height: 100px;
+}
+
+.profile-img {
+  width: 50%; 
+}
+
+.card-header {
+  font-size: 40px;
+}
+
+.classes-available {
+  font-size: 24px;
 }

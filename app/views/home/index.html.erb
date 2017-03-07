@@ -3,6 +3,7 @@
   <% destroy_user_session_path %> 
   <%= puts "Working" %>
 <% end %>
+<%#<%= render 'navigation_bar' %>
 <html>
     <head>
         <meta charset="utf-8">
@@ -11,7 +12,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+        <link rel="stylesheet" href="/assets/bootstrap.css" media="screen">
         <link rel="stylesheet" href="/assets/home.css" media="screen"/>
+        <link rel="stylesheet" href="/assets/style.css" media="screen"> 
+        <link rel="stylesheet" href="./css/font-awesome.min.css"> 
         
         <link href='//fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
         
@@ -34,8 +38,7 @@
           
           <!-- Login Button -->
           <div id="login">
-            <%= link_to 'Login', login_hub_index_path %>
-            <!-- <a id="login button" class="button" style="float:right"  onclick="document.getElementById('login modal').style.display='block'"</a>>Login</a> -->
+            <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Login</a>
           </div>
         </div>
         
@@ -46,15 +49,13 @@
               <span onclick="document.getElementById('login modal').style.display='none'" class="w3-closebtn w3-hover-text-grey" style="color: #BFBFBF">x</span>
               
               <div class = "w3-container w3-center" style="padding: 16px">
-                <sub-header>Login</sub-header>
-                <br/>
-                <input type="text" id="net ID" placeholder="Net ID"></input>
-                <input type="text" id="password" placeholder="Password"></input>
-                <input type="submit" value="Login" onclick="document.getElementById('login modal').style.display='none'"> 
+                <%= render 'login_modal' %>
               </div>
             </div>
           </div>
         </div>
+        
+       
         
         <!-- View Button Bar -->
         <div class="w3-panel w3-center">
@@ -68,37 +69,23 @@
         <div style="color:white;">
             <%= link_to 'Populate Database',  home_populate_db_path %>
         </div>
-        
-        <h style="color:white;">Peer Teachers:</h>
-        <table>
-          <tbody>
-            <% @peer_teachers.each do |pt| %>
-              <tr>
-                <td style="color:white;">
-                  <%= pt.netID  %>
-                </td>
-                <td style="color:white;">
-                  <%= pt.name %>
-                </td>
-                <td style="color:white;">
-                  <%= pt.courselist %>
-                </td>
-                <td style="color:white;">
-                  <%= pt.timelist %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        
-        <h style="color:white;">Office Hours: (Just for debug)</h>
-        <table>
+      
+      
+      <!-- Available View -->
+      <div id="available view">
+          <sub-header>Available View</sub-header>
+          <!--
+          <div>
+            <container>
+              <card>TEST</card>
+              <card>HI</card>
+            </container>
+          </div>
+          -->
+          <table>
           <tbody>
             <% @office_hours.each do |oh| %>
               <tr>
-                <td style="color:white;">
-                  <%= oh.timeID  %>
-                </td>
                 <td style="color:white;">
                   <%= oh.netID %>
                 </td>
@@ -121,17 +108,58 @@
             <% end %>
           </tbody>
         </table>
-      
-      
-      <!-- Available View -->
-      <div id="available view">
-          <sub-header>Available View</sub-header>
       </div>
       
       <!-- All View -->
       <div id="all view" style="display: none">
         <sub-header>All View</sub-header>
-      </div>
+        
+      
+			  <% @peer_teachers.each do |pt| %>
+  			  <div class="row">
+    				<div class="card">
+    				  <div class="col-sm-3">
+						    <img src=<%= pt.image %> >
+					    </div>
+    					<div class="col-sm-3">
+    						<h2 class="card-header" style="color:white;"><%= pt.name %></h2>
+      				</div>
+      				<div class="col-sm-3">
+      					  <h3>Courses: </h3>
+      					  CSCE <%= pt.courselist %>  
+      					</div>
+      				<div class="col-sm-3">
+    					  <h3>Office Hours:</h3>  
+    					  <% @office_hours.where(netID: pt.netID).find_each do |time| %>
+                  <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                  <br>
+                <% end %>
+    					</div>
+    				</div>
+  				</div>
+				<% end %>
+  
+        <!--<table>
+          <tbody>
+            <#n% @peer_teachers.each do |pt| %>
+              <tr>
+                <td style="color:white;">
+                  <#%= pt.netID %>
+                </td>
+                <td style="color:white;">
+                  <#%= pt.name %>
+                </td>
+                <td style="color:white;">
+                  <#%= pt.courselist %>
+                </td>
+                <td style="color:white;">
+                  <#%= pt.image %>
+                </td>
+              </tr>
+            <#% end %>
+          </tbody>
+        </table>
+      </div>-->
       
       <!-- Schedule Changes View -->
       <div id="schedule changes view" style="display: none">

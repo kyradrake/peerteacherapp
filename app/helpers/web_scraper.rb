@@ -17,7 +17,9 @@ timeid = 100
   #for class record
   doc.css('.record').each do |record|
   imageURLlist = record.css('img').map{ |i| i['src'] }
-  imageURL = imageURLlist[0]
+  if(imageURLlist[0])
+    imageURL = "https://engineering.tamu.edu" + imageURLlist[0]
+  end
   name_el = record.css('h3')  
   name = name_el.text.strip 
   emailList = record.css('h4 a').map { |i| i['href']}
@@ -118,4 +120,4 @@ timeid = 100
   copyhours.clear
 end
 
-#puts JSON.pretty_generate(people)
+puts JSON.pretty_generate(people)

@@ -5,6 +5,7 @@ ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use SCSS for stylesheets
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -25,6 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 
+gem 'whenever', :require => false
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -34,10 +37,9 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   gem 'rspec-rails'
   gem 'guard-rspec'
   
@@ -49,13 +51,30 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'rspec'
+end
+
+group :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'rspec'
 end
 
 group :production do
   gem 'pg' # for Heroku deployment
   gem 'rails_12factor'
 end
-
-#group :test do
- # gem 'cucumber'
-#end

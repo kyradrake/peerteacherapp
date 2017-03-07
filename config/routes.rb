@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admins
-  devise_for :users
-  
+  devise_for :users, controllers: {sessions: "sessions"}
   
   get 'login_hub/index'                 #the index is for the regular user 
   get 'login_hub/admin'                 #for the admin page 

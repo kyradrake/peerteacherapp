@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170304231546) do
     t.string   "name"
     t.string   "courselist"
     t.string   "timelist"
+    t.string   "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
