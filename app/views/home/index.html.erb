@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<% if user_signed_in? %>
-  <% destroy_user_session_path %> 
-  <%= puts "Working" %>
+<% if user_signed_in? or admin_signed_in? %>
+  <% destroy_user_session_path %>
+<% end %>
+<% if admin_signed_in? %>
+  <% destroy_admin_session_path %>
 <% end %>
 <%#<%= render 'navigation_bar' %>
 <html>

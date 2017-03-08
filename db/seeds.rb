@@ -17,10 +17,13 @@
 #               {:timeID => 103, :netID => 'cooper', :dow => 'WED', :sHour => 2, :sMin => 15, :eHour => 3, :eMin => 45},
 #               {:timeID => 104, :netID => 'cr7', :dow => 'FRI', :sHour => 9, :sMin => 50, :eHour => 1, :eMin => 50},
 #        ]  
-User.create( email: 'joelescobar@tamu.edu', first_name: 'Joel', last_name: 'Escobar', password: 'user' ) 
-Admin.create( email: 'joelescobar01@gmail.com', first_name: 'Joel', last_name: 'Escobar', password: 'admin' )
+user = [{email: 'joelescobar@tamu.edu', first_name: 'Joel', last_name: 'Escobar', password: 'user' },
+        {email: 'testing@tamu.edu', first_name: 'John', last_name: 'Hancok', password: 'admin', admin: true } ]           
         
-        
+
+user.each do |u|
+    User.create!( u )
+end
 
 #peerTeachers.each do |pt|
 #  PeerTeacher.create!(pt)
