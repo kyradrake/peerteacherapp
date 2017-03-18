@@ -15,5 +15,60 @@
     
     <body>
         <header>Currently Available</header>
+        
+        <% if(session[:available_pts]) %>
+            <% session[:available_pts].each_slice(2) do |pt1, pt2| %>
+      			  <div class="row">
+      			    <div class="col-sm-6">
+          			  <div class="row">
+            				<div class="card">
+            				  <div class="col-sm-2">
+        						    <img src=<%= (@peer_teachers.find_by netID: pt1).image %> >
+        					    </div>
+            					<div class="col-sm-4">
+            						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt1).name %></h2>
+              				</div>
+              				<div class="col-sm-3">
+              					  <h3>Courses: </h3>
+              					  CSCE <%= (@peer_teachers.find_by netID: pt1).courselist %>  
+              					</div>
+              				<div class="col-sm-3">
+            					  <h3>Office Hours:</h3>  
+            					  <% @office_hours.where(netID: pt1).find_each do |time| %>
+                          <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                          <br>
+                        <% end %>
+            					</div>
+            				</div>
+        				  </div>
+        				</div>
+        				<% if(pt2) %>
+          				<div class="col-sm-6">
+          			    <div class="row">
+              				<div class="card">
+              				  <div class="col-sm-2">
+          						    <img src=<%= (@peer_teachers.find_by netID: pt2).image %> >
+          					    </div>
+              					<div class="col-sm-4">
+              						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt2).name %></h2>
+                				</div>
+                				<div class="col-sm-3">
+                					  <h3>Courses: </h3>
+                					  CSCE <%= (@peer_teachers.find_by netID: pt2).courselist %>  
+                					</div>
+                				<div class="col-sm-3">
+              					  <h3>Office Hours:</h3>  
+              					  <% @office_hours.where(netID: pt2).find_each do |time| %>
+                            <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                            <br>
+                          <% end %>
+              					</div>
+              			  </div>
+              		  </div>
+          				</div>
+      				  <% end %>
+      				</div>
+    				<% end %>
+          <% end %>
     </body>
 </html>

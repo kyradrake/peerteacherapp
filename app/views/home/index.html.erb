@@ -75,68 +75,148 @@
       <!-- Available View -->
       <div id="available view">
           <sub-header>Available View</sub-header>
-          <!--
-          <div>
-            <container>
-              <card>TEST</card>
-              <card>HI</card>
-            </container>
+          
+          <div style="color:white;">
+            <%= link_to 'Find Available PTs',  home_availables_path %>
           </div>
-          -->
-          <table>
+        
+          <% if(session[:available_pts]) %>
+            <% session[:available_pts].each_slice(2) do |pt1, pt2| %>
+      			  <div class="row">
+      			    <div class="col-sm-6">
+          			  <div class="row">
+            				<div class="card">
+            				  <div class="col-sm-2">
+        						    <img src=<%= (@peer_teachers.find_by netID: pt1).image %> >
+        					    </div>
+            					<div class="col-sm-4">
+            						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt1).name %></h2>
+              				</div>
+              				<div class="col-sm-3">
+              					  <h3>Courses: </h3>
+              					  CSCE <%= (@peer_teachers.find_by netID: pt1).courselist %>  
+              					</div>
+              				<div class="col-sm-3">
+            					  <h3>Office Hours:</h3>  
+            					  <% @office_hours.where(netID: pt1).find_each do |time| %>
+                          <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                          <br>
+                        <% end %>
+            					</div>
+            				</div>
+        				  </div>
+        				</div>
+        				<% if(pt2) %>
+          				<div class="col-sm-6">
+          			    <div class="row">
+              				<div class="card">
+              				  <div class="col-sm-2">
+          						    <img src=<%= (@peer_teachers.find_by netID: pt2).image %> >
+          					    </div>
+              					<div class="col-sm-4">
+              						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt2).name %></h2>
+                				</div>
+                				<div class="col-sm-3">
+                					  <h3>Courses: </h3>
+                					  CSCE <%= (@peer_teachers.find_by netID: pt2).courselist %>  
+                					</div>
+                				<div class="col-sm-3">
+              					  <h3>Office Hours:</h3>  
+              					  <% @office_hours.where(netID: pt2).find_each do |time| %>
+                            <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                            <br>
+                          <% end %>
+              					</div>
+              			  </div>
+              		  </div>
+          				</div>
+      				  <% end %>
+      				</div>
+    				<% end %>
+          <% end %>
+
+          <!--<table>
           <tbody>
-            <% @office_hours.each do |oh| %>
+            <#% @office_hours.each do |oh| %>
               <tr>
                 <td style="color:white;">
-                  <%= oh.netID %>
+                  <#%= oh.netID %>
                 </td>
                 <td style="color:white;">
-                  <%= oh.dow %>
+                  <#%= oh.dow %>
                 </td>
                 <td style="color:white;">
-                  <%= oh.sHour %>
+                  <#%= oh.sHour %>
                 </td>
                 <td style="color:white;">
-                  <%= oh.sMin %>
+                  <#%= oh.sMin %>
                 </td>
                 <td style="color:white;">
-                  <%= oh.eHour %>
+                  <#%= oh.eHour %>
                 </td>
                 <td style="color:white;">
-                  <%= oh.eMin %>
+                  <#%= oh.eMin %>
                 </td>
               </tr>
-            <% end %>
+            <#% end %>
           </tbody>
-        </table>
+        </table>-->
       </div>
       
       <!-- All View -->
       <div id="all view" style="display: none">
         <sub-header>All View</sub-header>
         
-      
-			  <% @peer_teachers.each do |pt| %>
+			  <% @peer_teachers.each_slice(2) do |pt1, pt2| %>
   			  <div class="row">
-    				<div class="card">
-    				  <div class="col-sm-3">
-						    <img src=<%= pt.image %> >
-					    </div>
-    					<div class="col-sm-3">
-    						<h2 class="card-header" style="color:white;"><%= pt.name %></h2>
-      				</div>
-      				<div class="col-sm-3">
-      					  <h3>Courses: </h3>
-      					  CSCE <%= pt.courselist %>  
-      					</div>
-      				<div class="col-sm-3">
-    					  <h3>Office Hours:</h3>  
-    					  <% @office_hours.where(netID: pt.netID).find_each do |time| %>
-                  <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
-                  <br>
-                <% end %>
-    					</div>
+  			    <div class="col-sm-6">
+      			  <div class="row">
+        				<div class="card">
+        				  <div class="col-sm-2">
+    						    <img src=<%= pt1.image %> >
+    					    </div>
+        					<div class="col-sm-4">
+        						<h2 class="card-header" style="color:white;"><%= pt1.name %></h2>
+          				</div>
+          				<div class="col-sm-3">
+          					  <h3>Courses: </h3>
+          					  CSCE <%= pt1.courselist %>  
+          					</div>
+          				<div class="col-sm-3">
+        					  <h3>Office Hours:</h3>  
+        					  <% @office_hours.where(netID: pt1.netID).find_each do |time| %>
+                      <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                      <br>
+                    <% end %>
+        					</div>
+        				</div>
+    				  </div>
     				</div>
+    				<% if(pt2) %>
+      				<div class="col-sm-6">
+      			    <div class="row">
+          				<div class="card">
+          				  <div class="col-sm-2">
+      						    <img src=<%= pt2.image %> >
+      					    </div>
+          					<div class="col-sm-4">
+          						<h2 class="card-header" style="color:white;"><%= pt2.name %></h2>
+            				</div>
+            				<div class="col-sm-3">
+            					  <h3>Courses: </h3>
+            					  CSCE <%= pt2.courselist %>  
+            					</div>
+            				<div class="col-sm-3">
+          					  <h3>Office Hours:</h3>  
+          					  <% @office_hours.where(netID: pt2.netID).find_each do |time| %>
+                        <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+                        <br>
+                      <% end %>
+          					</div>
+          			  </div>
+          		  </div>
+      				</div>
+  				  <% end %>
   				</div>
 				<% end %>
   

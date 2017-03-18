@@ -10,6 +10,7 @@ class CreateUpdates < ActiveRecord::Migration
       t.integer :eMin
       t.string :flag
       t.string :msg
+      t.integer :approved
       
       t.timestamps null: false
     end

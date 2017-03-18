@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170308014608) do
     t.integer  "eMin"
     t.string   "flag"
     t.string   "msg"
+    t.integer  "approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   get 'home/index'
   get 'home/populate_db'
+  get 'home/availables'
   
   get '/ptc', to: 'ptc#ptc'
   get '/admin', to: 'admin#admin'

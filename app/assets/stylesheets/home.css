@@ -114,3 +114,8 @@ input[type=submit] {
 .classes-available {
   font-size: 24px;
 }
+
+table, th, td {
+    border: 1px solid black;
+    color: white;
+}

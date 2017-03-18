@@ -9,6 +9,8 @@ class PeerTeacherController < ApplicationController
     end
     
     def index
+      #session[:available_pts].clear
+      @time = Time.new
       if user_signed_in?
         sign_out current_user
       end
@@ -173,10 +175,79 @@ class PeerTeacherController < ApplicationController
           
           copyhours.clear
           
-          if(name)
+          if(name != '')
             PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
           end
         end 
         redirect_to home_index_path
+    end
+    
+    def availables
+      @time = Time.new
+      centralHour = @time.hour - 5
+      if(centralHour < 0)
+        centralHour += 24
+      end
+      
+      session[:available_pts].clear
+      @office_hours = OfficeHour.all
+      @peer_teachers = PeerTeacher.all
+      
+      #For testing
+      #session[:available_pts].push("amanda.bsaibes@tamu.edu")
+      #session[:available_pts].push("cangkevin@tamu.edu")
+      
+      @office_hours.each do |oh|
+        if(oh.dow == "M")
+          if(@time.wday != 1)
+            next
+          end
+        end
+        if(oh.dow == "T")
+          if(@time.wday != 2)
+            next
+          end
+        end
+        if(oh.dow == "W")
+          if(@time.wday != 3)
+            next
+          end
+        end
+        if(oh.dow == "R")
+          if(@time.wday != 4)
+            next
+          end
+        end
+        if(oh.dow == "F")
+          if(@time.wday != 5)
+            next
+          end
+        end
+        if(oh.dow == "Su")
+          if(@time.wday != 6)
+            next
+          end
+        end
+        
+        if (oh.sHour > centralHour || oh.eHour < centralHour)
+          next
+        end
+        
+        if(oh.sHour == centralHour)
+          if(oh.sMin > @time.min)
+            next
+          end
+        end
+        
+        if(oh.eHour == centralHour)
+          if(oh.eMin < @time.min)
+            next
+          end
+        end
+        
+        session[:available_pts].push(oh.netID)
+      end
+      
+      redirect_to home_index_path
     end
 end
