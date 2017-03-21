@@ -34,8 +34,47 @@
               					</div>
               				<div class="col-sm-3">
             					  <h3>Office Hours:</h3>  
-            					  <% @office_hours.where(netID: pt1).find_each do |time| %>
-                          <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+            					  <% @office_hours.where(netID: pt1).find_each do |time| 
+          					      sHour=""
+          					      sMin=""
+          					      sTOD=""
+          					      eHour=""
+          					      eMin=""
+            					    eTOD=""
+            					    if time.sHour>12
+            					      sHour=time.sHour-12
+            					      sTOD="pm"
+            					    else
+            					      sHour=time.sHour
+            					      if time.sHour==12
+            					        sTOD="pm"
+            					      else
+            					        sTOD="am"
+            					      end
+            					    end
+            					    if time.sMin==0
+            					      sMin="00"
+            					    else 
+            					      sMin=time.sMin
+            					    end
+            					    if time.eHour>12
+            					      eHour=time.eHour-12
+            					      eTOD="pm"
+            					    else
+            					      eHour=time.eHour
+            					      if time.eHour==12
+            					        eTOD="pm"
+            					      else
+            					        eTOD="am"
+            					      end
+            					    end
+            					    if time.eMin==0
+            					      eMin="00"
+            					    else 
+            					      eMin=time.eMin
+            					    end
+            					  %>
+        					      <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
                           <br>
                         <% end %>
             					</div>
@@ -58,8 +97,47 @@
                 					</div>
                 				<div class="col-sm-3">
               					  <h3>Office Hours:</h3>  
-              					  <% @office_hours.where(netID: pt2).find_each do |time| %>
-                            <%= time.dow %> <%= time.sHour %>:<%= time.sMin %> - <%= time.eHour %>:<%= time.eMin %>
+              					  <% @office_hours.where(netID: pt2).find_each do |time| 
+            					      sHour=""
+            					      sMin=""
+            					      sTOD=""
+            					      eHour=""
+            					      eMin=""
+              					    eTOD=""
+              					    if time.sHour>12
+              					      sHour=time.sHour-12
+              					      sTOD="pm"
+              					    else
+              					      sHour=time.sHour
+              					      if time.sHour==12
+              					        sTOD="pm"
+              					      else
+              					        sTOD="am"
+              					      end
+              					    end
+              					    if time.sMin==0
+              					      sMin="00"
+              					    else 
+              					      sMin=time.sMin
+              					    end
+              					    if time.eHour>12
+              					      eHour=time.eHour-12
+              					      eTOD="pm"
+              					    else
+              					      eHour=time.eHour
+              					      if time.eHour==12
+              					        eTOD="pm"
+              					      else
+              					        eTOD="am"
+              					      end
+              					    end
+              					    if time.eMin==0
+              					      eMin="00"
+              					    else 
+              					      eMin=time.eMin
+              					    end
+              					  %>
+            					      <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
                             <br>
                           <% end %>
               					</div>

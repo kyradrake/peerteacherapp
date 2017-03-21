@@ -14,8 +14,10 @@ class PeerTeacherController < ApplicationController
       if user_signed_in?
         sign_out current_user
       end
-        @peer_teachers = PeerTeacher.all
-        @office_hours = OfficeHour.all
+      @peer_teachers = PeerTeacher.all
+      @office_hours = OfficeHour.all
+      #populate_db
+      availables
     end
    
     def show
@@ -189,7 +191,12 @@ class PeerTeacherController < ApplicationController
         centralHour += 24
       end
       
-      session[:available_pts].clear
+      if(session[:available_pts])   #.size > 0s
+        session[:available_pts].clear
+      else
+        session[:available_pts] = Array.new
+      end
+      
       @office_hours = OfficeHour.all
       @peer_teachers = PeerTeacher.all
       
@@ -224,7 +231,7 @@ class PeerTeacherController < ApplicationController
           end
         end
         if(oh.dow == "Su")
-          if(@time.wday != 6)
+          if(@time.wday != 0)
             next
           end
         end
@@ -232,22 +239,21 @@ class PeerTeacherController < ApplicationController
         if (oh.sHour > centralHour || oh.eHour < centralHour)
           next
         end
-        
         if(oh.sHour == centralHour)
           if(oh.sMin > @time.min)
             next
           end
         end
-        
+
         if(oh.eHour == centralHour)
           if(oh.eMin < @time.min)
             next
           end
         end
-        
+
         session[:available_pts].push(oh.netID)
       end
       
-      redirect_to home_index_path
+      #redirect_to home_index_path
     end
 end
