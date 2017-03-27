@@ -5,7 +5,7 @@ require 'json'
 class PeerTeacherController < ApplicationController
     
     def peerTeacher_params
-        params.require(:peerTeachers).permit(:netID, :name, :courselist, :timelist)
+        params.require(:peerTeachers).permit(:email, :name, :courselist, :timelist)
     end
     
     def index
@@ -16,6 +16,7 @@ class PeerTeacherController < ApplicationController
       end
       @peer_teachers = PeerTeacher.all
       @office_hours = OfficeHour.all
+      @updates = Update.all
       #populate_db
       availables
     end
@@ -163,7 +164,7 @@ class PeerTeacherController < ApplicationController
             end
             
             days.each do |d| 
-                OfficeHour.create(:timeID => timeid, :netID => email, :dow => d, :sHour => sh, :sMin => sm, :eHour => eh, :eMin => em)
+                OfficeHour.create(:timeID => timeid, :email => email, :dow => d, :sHour => sh, :sMin => sm, :eHour => eh, :eMin => em, :change => "No Change")
             end
             timeid += 1
             timeList += timeid.to_s + ','
@@ -178,7 +179,7 @@ class PeerTeacherController < ApplicationController
           copyhours.clear
           
           if(name != '')
-            PeerTeacher.create(:netID => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
+            PeerTeacher.create(:email => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
           end
         end 
         redirect_to home_index_path
@@ -190,6 +191,8 @@ class PeerTeacherController < ApplicationController
       if(centralHour < 0)
         centralHour += 24
       end
+      
+      today = (@time.month.to_s + "/" + @time.day.to_s + "/" + @time.year.to_s)
       
       if(session[:available_pts])   #.size > 0s
         session[:available_pts].clear
@@ -203,6 +206,89 @@ class PeerTeacherController < ApplicationController
       #For testing
       #session[:available_pts].push("amanda.bsaibes@tamu.edu")
       #session[:available_pts].push("cangkevin@tamu.edu")
+      Update.delete_all #MAKE SURE TO COMMENT THIS WHEN DONE WITH TESTING
+      @office_hours.where(email: "darrencola@tamu.edu").find_each do |kevinTime|
+        if(kevinTime.dow == "Su")
+          kevinTime.update(change: "Delete")
+          Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :oldDate => "3/26/2017", :newDate => "", :action => "Delete", :msg => "TEST 1", :approved => 1)
+        end
+      end
+      
+      @office_hours.where(email: "tcarlson25@tamu.edu").find_each do |tylerTime|
+        if(tylerTime.dow == "Su")
+          tylerTime.update(change: "3/26/2017")
+          Update.create(:timeID => tylerTime.timeID, :email => tylerTime.email, :dow => "Su", :sHour => 16, :sMin => 40, :eHour => 16, :eMin => 56, :oldDate => "3/26/2017", :newDate => "3/26/2017", :action => "Update", :msg => "TEST 2", :approved => 1)
+        end
+      end
+      
+      @updates = Update.all
+      
+      updateDone = false
+      origDone = false
+      
+      @updates.each do |oh|
+        if(oh.action == "Update" && oh.newDate == today)
+          if(oh.dow == "M")
+            if(@time.wday != 1)
+              next
+            end
+          end
+          if(oh.dow == "T")
+            if(@time.wday != 2)
+              next
+            end
+          end
+          if(oh.dow == "W")
+            if(@time.wday != 3)
+              next
+            end
+          end
+          if(oh.dow == "R")
+            if(@time.wday != 4)
+              next
+            end
+          end
+          if(oh.dow == "F")
+            if(@time.wday != 5)
+              next
+            end
+          end
+          if(oh.dow == "Su")
+            if(@time.wday != 0)
+              next
+            end
+          end
+          
+          if (oh.sHour > centralHour || oh.eHour < centralHour)
+            if(oh.eHour < centralHour)
+              updateDone = true
+              orig = @office_hours.find_by(timeID: oh.timeID)
+              if(orig && updateDone && origDone)
+                orig.update(change: "No Change")
+                session[oh.email] = 0
+                oh.destroy
+              end
+            end
+            next
+          end
+          
+          if(oh.sHour == centralHour)
+            if(oh.sMin > @time.min)
+              next
+            end
+          end
+  
+          if(oh.eHour == centralHour)
+            if(oh.eMin < @time.min)
+              next
+            end
+          end
+          
+          if(oh.newDate == today)
+            session[:available_pts].push(oh.email)
+          end
+        end
+      end
       
       @office_hours.each do |oh|
         if(oh.dow == "M")
@@ -237,23 +323,48 @@ class PeerTeacherController < ApplicationController
         end
         
         if (oh.sHour > centralHour || oh.eHour < centralHour)
+          if(oh.eHour < centralHour)
+            u = Update.find_by(timeID: oh.timeID)
+            if(u)
+              origDone = true
+              if(oh.change == "Delete" && u.oldDate == today)
+                oh.update(change: "No Change")
+                session[oh.email] = 0
+                u.destroy
+              elsif(origDone && updateDone && u.oldDate == today)
+                oh.update(change: "No Change")
+                session[oh.email] = 0
+                u.destroy
+              end
+            end
+          end
           next
         end
+        
         if(oh.sHour == centralHour)
           if(oh.sMin > @time.min)
             next
           end
         end
-
+        
         if(oh.eHour == centralHour)
           if(oh.eMin < @time.min)
             next
           end
         end
-
-        session[:available_pts].push(oh.netID)
+        
+        u = Update.find_by(timeID: oh.timeID)
+        
+        if(u)
+          if(oh.change == "Delete" && u.oldDate == today)
+            session[oh.email] = 1
+          elsif(oh.change == u.oldDate && oh.change == today)
+            session[oh.email] = 1
+          end
+        end
+        
+        session[:available_pts].push(oh.email)
       end
-      
       #redirect_to home_index_path
     end
 end

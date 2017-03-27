@@ -18,6 +18,7 @@
 #               {:timeID => 104, :netID => 'cr7', :dow => 'FRI', :sHour => 9, :sMin => 50, :eHour => 1, :eMin => 50},
 #        ]  
 user = [{email: 'joelescobar@tamu.edu', first_name: 'Joel', last_name: 'Escobar', password: 'user' },
+        {email: 'kyradrake@tamu.edu', first_name: 'Kyra', last_name: 'Drake', password: 'pass' }, 
         {email: 'testing@tamu.edu', first_name: 'John', last_name: 'Hancok', password: 'admin', admin: true } ]           
         
 

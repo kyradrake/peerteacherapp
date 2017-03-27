@@ -1,0 +1,59 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+    </button>
+  </div>
+  <!--/.navbar-header-->
+ 
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses <b class="caret"></b></a>
+        <ul class="dropdown-menu multi-column columns-3">
+          <div class="row">
+            <div class="col-sm-4">
+	            <ul class="multi-column-dropdown">
+		            <li><a href="#">110</a></li>
+		            <li><a href="#">111</a></li>
+		            <li><a href="#">121</a></li>
+	            </ul>
+            </div>
+            <div class="col-sm-4">
+	            <ul class="multi-column-dropdown">
+		            <li><a href="#">206</a></li>
+		            <li><a href="#">221</a></li>
+		            <li><a href="#">222</a></li>
+	            </ul>
+            </div>
+            <div class="col-sm-4">
+	            <ul class="multi-column-dropdown">
+		            <li><a href="#">312</a></li>
+		            <li><a href="#">313</a></li>
+		            <li><a href="#">314</a></li>
+		            <li><a href="#">315</a></li>
+		            <li><a href="#">350</a></li>
+	            </ul>
+            </div>
+          </div>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li class='active'>
+          <button type="button" class="btn btn-md"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></button>
+        </li>
+      <% else %>
+        <li>
+          <a id="login button" onclick="document.getElementById('login modal').style.display='block'">Login</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <!--/.navbar-collapse-->
+</nav>
+<!--/.navbar-->

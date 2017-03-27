@@ -1,0 +1,60 @@
+<sub-header>Hello <%= current_user.first_name %> <%= current_user.last_name %>,<br></sub-header>
+<input type="submit" value="Change Schedule" onclick="return showChangeDiv()"></submit>  <!-- onclick="document.getElementById('login modal').style.display='none'" -->
+<br>
+<sub-header>Hours: </sub-header>
+<br>
+<text id="hours">
+  <% @office_hours.where(netID: current_user.email).find_each do |time| 
+      sHour=""
+      sMin=""
+      sTOD=""
+      eHour=""
+      eMin=""
+      eTOD=""
+      if time.sHour>12
+        sHour=time.sHour-12
+        sTOD="pm"
+      else
+        sHour=time.sHour
+        if time.sHour==12
+  	        sTOD="pm"
+  	      else
+  	        sTOD="am"
+  	      end
+      end
+      if time.sMin==0
+        sMin="00"
+      else 
+        sMin=time.sMin
+      end
+      if time.eHour>12
+        eHour=time.eHour-12
+        eTOD="pm"
+      else
+        eHour=time.eHour
+        if time.eHour==12
+  	        eTOD="pm"
+  	      else
+  	        eTOD="am"
+  	      end
+      end
+      if time.eMin==0
+        eMin="00"
+      else 
+        eMin=time.eMin
+      end
+    %>
+  <tab></tab><%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
+  <br>
+  <% end %>
+</text>
+
+<sub-header>Changes: <br></sub-header>
+
+<sub-header>Courses: <br></sub-header>
+<text id="courses">
+  <% @peer_teachers.where(netID: current_user.email).find_each do |pt| %>
+  <tab></tab>CSCE <%= pt.courselist %>
+  <br>
+  <% end %>
+</text>

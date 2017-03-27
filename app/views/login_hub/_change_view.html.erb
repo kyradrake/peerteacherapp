@@ -1,0 +1,54 @@
+<div class="w3-panel w3-center">
+  <div class="w3-show-inline-block">
+    <a id="cancel button" class="btn-link" onclick="return showCancelForm()">Cancel</a>
+    <a id="schedule button" class="btn-link" onclick="return showScheduleForm()">Schedule</a>
+  </div>
+</div>
+
+<div id="cancel form">
+  <sub-header>Cancel Form</sub-header>
+  <br>
+    
+    
+  <div>
+    <%= form_tag do %>
+      <text>Date: </text>
+      <%= text_field_tag(:cancelCalendar) %>
+      <text>Time: </text>
+      <%= text_field_tag(:stime) %><text>to</text><%= text_field_tag(:etime) %>
+      <br>
+      <text>I need to cancel my office hours because...</text>
+      <br>
+      <%= text_area_tag(:reason, "", size: "40x6") %>
+      <br>
+      <%= check_box_tag(:reschedule) %>
+      <text>Reschedule?</text>
+      <br>
+      <text>Date: </text>
+      <%= text_field_tag(:rescheduleCalendar) %>
+      <text>Time: </text>
+      <%= text_field_tag(:rescheduledSTime) %><text>to</text><%= text_field_tag(:rescheduledETime) %>
+      <br>
+    <% end %> 
+  </div>
+  
+    
+    
+    <!--
+    <form>
+        <text>Date: </text>
+        <input type="text" id="calendar">
+        <text>Time: </text>
+        <select type="text" id="time">
+             @office_hours.where(netID: current_user.email, dow: document.getElementById("calendar").datepicker("dayNames")).find_each do |time| %>
+                <option value="a">< time.dow %></option>
+             end %>
+        </select>
+    </form>
+    -->
+    
+</div>
+
+<div id="schedule form" style="display: none">
+  <sub-header>Schedule Form</sub-header>
+</div>

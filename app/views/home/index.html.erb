@@ -5,7 +5,6 @@
 <% if admin_signed_in? %>
   <% destroy_admin_session_path %>
 <% end %>
-<%#<%= render 'navigation_bar' %>
 <html>
     <head>
         <meta charset="utf-8">
@@ -15,38 +14,23 @@
         <meta http-equiv="refresh" content="300" />
         
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
-        <link rel="stylesheet" href="/assets/bootstrap.css" media="screen">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/assets/home.css" media="screen"/>
-        <link rel="stylesheet" href="./css/font-awesome.min.css"> 
         
-        <link href='//fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="/assets/application.js"></script>
     
         <title>Peer Teacher Web Portal</title>
     </head>
     
     <body>
-      <div id="header">
-        <!-- Search Bar 
-        <div id="search bar">
-          <sub-header>Search Bar</sub-header>
-        </div> -->
-        
-        <!-- CSCE Course Buttons 
-        <div id="course buttons">
-          <sub-header>CSCE Course Buttons</sub-header>
-        </div> -->
-        
-        <!-- Login Button -->
-        <div id="login">
-          <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Login</a>
-        </div>
-      </div>
+      <%= render 'navigation_bar' %>
       
       <!-- Login Modal -->
       <div id="login modal" class="w3-modal">
-        <div class="w3-modal-content w3-animate-zoom" style="background-color: #595959">
+        <div class="modal-dialog modal-md" style="background-color: #595959">
           <div class="w3-container w3-center">
             <span onclick="document.getElementById('login modal').style.display='none'" class="w3-closebtn w3-hover-text-grey" style="color: #BFBFBF">x</span>
             
@@ -58,313 +42,25 @@
       </div>
       
       <!-- View Button Bar -->
-      <div class="w3-panel w3-center">
-          <div class="w3-show-inline-block">
-              <a id="available button" class="button" onclick="return showAvailableDiv()">Available</a>
-              <a id="all button" class="button" onclick="return showAllDiv()">All</a> 
-              <a id="schedule changes button" class="button" onclick="return showScheduleChangesDiv()">Schedule Changes</a>
-          </div>
+      <div class="container-fluid text-center">
+        <a id="available button" class="btn-link" onclick="return showAvailableDiv()">Available</a>
+        <a id="all button" class="btn-link" onclick="return showAllDiv()">All</a> 
+        <a id="schedule changes button" class="btn-link" onclick="return showScheduleChangesDiv()">Schedule Changes</a>
       </div>
       
       <div style="color:white;">
-          <%= link_to 'Populate Database',  home_populate_db_path %>
+        <%= link_to 'Populate Database',  home_populate_db_path %>
       </div>
       
       <!-- Available View -->
       <div id="available view">
-          <% if(session[:available_pts]) %>
-            <% session[:available_pts].each_slice(2) do |pt1, pt2| %>
-      			  <div class="row">
-      			    <div class="col-sm-6">
-          			  <div class="row">
-            				<div class="card">
-            				  <div class="col-sm-2">
-        						    <img src=<%= (@peer_teachers.find_by netID: pt1).image %> >
-        					    </div>
-            					<div class="col-sm-4">
-            						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt1).name %></h2>
-              				</div>
-              				<div class="col-sm-3">
-              					  <h3>Courses: </h3>
-              					  CSCE <%= (@peer_teachers.find_by netID: pt1).courselist %>  
-              					</div>
-              				<div class="col-sm-3">
-            					  <h3>Office Hours:</h3>  
-            					  <% @office_hours.where(netID: pt1).find_each do |time| 
-          					      sHour=""
-          					      sMin=""
-          					      sTOD=""
-          					      eHour=""
-          					      eMin=""
-            					    eTOD=""
-            					    if time.sHour>12
-            					      sHour=time.sHour-12
-            					      sTOD="pm"
-            					    else
-            					      sHour=time.sHour
-            					      if time.sHour==12
-            					        sTOD="pm"
-            					      else
-            					        sTOD="am"
-            					      end
-            					    end
-            					    if time.sMin==0
-            					      sMin="00"
-            					    else 
-            					      sMin=time.sMin
-            					    end
-            					    if time.eHour>12
-            					      eHour=time.eHour-12
-            					      eTOD="pm"
-            					    else
-            					      eHour=time.eHour
-            					      if time.eHour==12
-            					        eTOD="pm"
-            					      else
-            					        eTOD="am"
-            					      end
-            					    end
-            					    if time.eMin==0
-            					      eMin="00"
-            					    else 
-            					      eMin=time.eMin
-            					    end
-            					  %>
-        					      <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
-                          <br>
-                        <% end %>
-            					</div>
-            				</div>
-        				  </div>
-        				</div>
-        				<% if(pt2) %>
-          				<div class="col-sm-6">
-          			    <div class="row">
-              				<div class="card">
-              				  <div class="col-sm-2">
-          						    <img src=<%= (@peer_teachers.find_by netID: pt2).image %> >
-          					    </div>
-              					<div class="col-sm-4">
-              						<h2 class="card-header" style="color:white;"><%= (@peer_teachers.find_by netID: pt2).name %></h2>
-                				</div>
-                				<div class="col-sm-3">
-                					  <h3>Courses: </h3>
-                					  CSCE <%= (@peer_teachers.find_by netID: pt2).courselist %>  
-                					</div>
-                				<div class="col-sm-3">
-              					  <h3>Office Hours:</h3>  
-              					  <% @office_hours.where(netID: pt2).find_each do |time| 
-            					      sHour=""
-            					      sMin=""
-            					      sTOD=""
-            					      eHour=""
-            					      eMin=""
-              					    eTOD=""
-              					    if time.sHour>12
-              					      sHour=time.sHour-12
-              					      sTOD="pm"
-              					    else
-              					      sHour=time.sHour
-              					      if time.sHour==12
-              					        sTOD="pm"
-              					      else
-              					        sTOD="am"
-              					      end
-              					    end
-              					    if time.sMin==0
-              					      sMin="00"
-              					    else 
-              					      sMin=time.sMin
-              					    end
-              					    if time.eHour>12
-              					      eHour=time.eHour-12
-              					      eTOD="pm"
-              					    else
-              					      eHour=time.eHour
-              					      if time.eHour==12
-              					        eTOD="pm"
-              					      else
-              					        eTOD="am"
-              					      end
-              					    end
-              					    if time.eMin==0
-              					      eMin="00"
-              					    else 
-              					      eMin=time.eMin
-              					    end
-              					  %>
-            					      <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
-                            <br>
-                          <% end %>
-              					</div>
-              			  </div>
-              		  </div>
-          				</div>
-      				  <% end %>
-      				</div>
-    				<% end %>
-          <% end %>
-
-          <!--<table>
-          <tbody>
-            <#% @office_hours.each do |oh| %>
-              <tr>
-                <td style="color:white;">
-                  <#%= oh.netID %>
-                </td>
-                <td style="color:white;">
-                  <#%= oh.dow %>
-                </td>
-                <td style="color:white;">
-                  <#%= oh.sHour %>
-                </td>
-                <td style="color:white;">
-                  <#%= oh.sMin %>
-                </td>
-                <td style="color:white;">
-                  <#%= oh.eHour %>
-                </td>
-                <td style="color:white;">
-                  <#%= oh.eMin %>
-                </td>
-              </tr>
-            <#% end %>
-          </tbody>
-        </table>-->
+        <%= render 'available_view' %>
       </div>
       
       <!-- All View -->
       <div id="all view" style="display: none">
-			  <% @peer_teachers.each_slice(2) do |pt1, pt2| %>
-  			  <div class="row">
-  			    <div class="col-sm-6">
-      			  <div class="row">
-        				<div class="card">
-        				  <div class="col-sm-2">
-    						    <img src=<%= pt1.image %> >
-    					    </div>
-        					<div class="col-sm-4">
-        						<h2 class="card-header" style="color:white;"><%= pt1.name %></h2>
-          				</div>
-          				<div class="col-sm-3">
-          					  <h3>Courses: </h3>
-          					  CSCE <%= pt1.courselist %>  
-          					</div>
-                  <div class="col-sm-3">
-        					  <h3>Office Hours:</h3>  
-        					  <% @office_hours.where(netID: pt1.netID).find_each do |time| 
-        					    sHour=""
-        					    sMin=""
-        					    sTOD=""
-        					    eHour=""
-        					    eMin=""
-        					    eTOD=""
-        					    if time.sHour>12
-        					      sHour=time.sHour-12
-        					      sTOD="pm"
-        					    else
-        					      sHour=time.sHour
-        					      if time.sHour==12
-          					        sTOD="pm"
-          					      else
-          					        sTOD="am"
-          					      end
-        					    end
-        					    if time.sMin==0
-        					      sMin="00"
-        					    else 
-        					      sMin=time.sMin
-        					    end
-        					    if time.eHour>12
-        					      eHour=time.eHour-12
-        					      eTOD="pm"
-        					    else
-        					      eHour=time.eHour
-        					      if time.eHour==12
-          					        eTOD="pm"
-          					      else
-          					        eTOD="am"
-          					      end
-        					    end
-        					    if time.eMin==0
-        					      eMin="00"
-        					    else 
-        					      eMin=time.eMin
-        					    end
-        					  %>
-        					    <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
-                      <br>
-                    <% end %>
-        					</div>
-        				</div>
-    				  </div>
-    				</div>
-    				<% if(pt2) %>
-      				<div class="col-sm-6">
-      			    <div class="row">
-          				<div class="card">
-          				  <div class="col-sm-2">
-      						    <img src=<%= pt2.image %> >
-      					    </div>
-          					<div class="col-sm-4">
-          						<h2 class="card-header" style="color:white;"><%= pt2.name %></h2>
-            				</div>
-            				<div class="col-sm-3">
-            					  <h3>Courses: </h3>
-            					  CSCE <%= pt2.courselist %>  
-            					</div>
-            				<div class="col-sm-3">
-          					  <h3>Office Hours:</h3>  
-          					  <% @office_hours.where(netID: pt2.netID).find_each do |time| 
-        					      sHour=""
-        					      sMin=""
-        					      sTOD=""
-        					      eHour=""
-        					      eMin=""
-          					    eTOD=""
-          					    if time.sHour>12
-          					      sHour=time.sHour-12
-          					      sTOD="pm"
-          					    else
-          					      sHour=time.sHour
-          					      if time.sHour==12
-          					        sTOD="pm"
-          					      else
-          					        sTOD="am"
-          					      end
-          					    end
-          					    if time.sMin==0
-          					      sMin="00"
-          					    else 
-          					      sMin=time.sMin
-          					    end
-          					    if time.eHour>12
-          					      eHour=time.eHour-12
-          					      eTOD="pm"
-          					    else
-          					      eHour=time.eHour
-          					      if time.eHour==12
-          					        eTOD="pm"
-          					      else
-          					        eTOD="am"
-          					      end
-          					    end
-          					    if time.eMin==0
-          					      eMin="00"
-          					    else 
-          					      eMin=time.eMin
-          					    end
-          					  %>
-        					      <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
-                        <br>
-                      <% end %>
-          					</div>
-          			  </div>
-          		  </div>
-      				</div>
-  				  <% end %>
-  				</div>
-				<% end %>
+        <%= render 'all_view' %>
+      </div>
 
       <!-- Schedule Changes View -->
       <div id="schedule changes view" style="display: none">

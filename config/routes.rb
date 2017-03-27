@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   #   resources :products
     resources :peer_teachers do
       resources :office_hours
+      resources :updates
     end
 
   # Example resource route with options:

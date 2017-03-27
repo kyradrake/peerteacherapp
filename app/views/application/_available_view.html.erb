@@ -1,0 +1,235 @@
+<div id="flexbox">
+  <div class="row row-flex row-flex-wrap">
+    <% if(session[:available_pts]) %>
+    <% session[:available_pts].each do |pt| %>
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-body" <% if(session[pt] == 1) %> style="background-color: #000000; color: #ffffff;" <% end %>>
+          <div class="col-sm-3">
+				    <img src=<%= (@peer_teachers.find_by email: pt).image %> >
+			    </div>
+			    <div class="col-sm-6">
+            <h3><%= (@peer_teachers.find_by email: pt).name %></h3>
+            <h4>Courses: </h4>
+    				<p>  CSCE <%= (@peer_teachers.find_by email: pt).courselist %>   </p>
+            <h4>Office Hours:</h4> 
+  					  <% @office_hours.where(email: pt).find_each do |time| 
+  					    sHour=""
+  					    sMin=""
+  					    sTOD=""
+  					    eHour=""
+  					    eMin=""
+  					    eTOD=""
+  					    
+  					    if time.sHour>12
+  					      sHour=time.sHour-12
+  					      sTOD="pm"
+  					    else
+  					      sHour=time.sHour
+  					      if time.sHour==12
+    					        sTOD="pm"
+    					      else
+    					        sTOD="am"
+    					      end
+  					    end
+  					    
+  					    if time.sMin==0
+  					      sMin="00"
+  					    else 
+  					      sMin=time.sMin
+  					    end
+  					    
+  					    if time.eHour>12
+  					      eHour=time.eHour-12
+  					      eTOD="pm"
+  					    else
+  					      eHour=time.eHour
+  					      if time.eHour==12
+    					        eTOD="pm"
+    					      else
+    					        eTOD="am"
+    					      end
+  					    end
+  					    
+  					    if time.eMin==0
+  					      eMin="00"
+  					    else 
+  					      eMin=time.eMin
+  					    end
+  					  %>
+  				    <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
+              <br>
+              <% end %>
+          </div>
+          <% if (session[pt] == 1) %>
+            <div class="col-sm-3">
+              <p>Message: <% @updates.find_by(email: pt).msg %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!--<#% if(session[:available_pts]) %>
+  <#% session[:available_pts].each_slice(2) do |pt1, pt2| %>
+	  <div class="row">
+	    <div class="col-sm-6">
+			  <div class="row">
+  				<div class="card">
+  				  <div class="col-sm-2">
+					    <img src=<#%= (@peer_teachers.find_by email: pt1).image %> >
+				    </div>
+  					<div class="col-sm-4">
+  						<h2 class="card-header" style="color:white;"><#%= (@peer_teachers.find_by email: pt1).name %></h2>
+    				</div>
+    				<div class="col-sm-3">
+    					  <h3>Courses: </h3>
+    					  CSCE <#%= (@peer_teachers.find_by email: pt1).courselist %>  
+    					</div>
+    				<div class="col-sm-3">
+  					  <h3>Office Hours:</h3>  
+  					  <#% @office_hours.where(email: pt1).find_each do |time| 
+					      sHour=""
+					      sMin=""
+					      sTOD=""
+					      eHour=""
+					      eMin=""
+  					    eTOD=""
+  					    if time.sHour>12
+  					      sHour=time.sHour-12
+  					      sTOD="pm"
+  					    else
+  					      sHour=time.sHour
+  					      if time.sHour==12
+  					        sTOD="pm"
+  					      else
+  					        sTOD="am"
+  					      end
+  					    end
+  					    if time.sMin==0
+  					      sMin="00"
+  					    else 
+  					      sMin=time.sMin
+  					    end
+  					    if time.eHour>12
+  					      eHour=time.eHour-12
+  					      eTOD="pm"
+  					    else
+  					      eHour=time.eHour
+  					      if time.eHour==12
+  					        eTOD="pm"
+  					      else
+  					        eTOD="am"
+  					      end
+  					    end
+  					    if time.eMin==0
+  					      eMin="00"
+  					    else 
+  					      eMin=time.eMin
+  					    end
+  					  %>
+				      <#%= time.dow %> <#%= sHour %>:<#%= sMin %><#%= sTOD %> - <#%= eHour %>:<#%= eMin %><#%= eTOD %>
+                <br>
+              <#% end %>
+  					</div>
+  				</div>
+			  </div>
+			</div>
+			<#% if(pt2) %>
+				<div class="col-sm-6">
+			    <div class="row">
+    				<div class="card">
+    				  <div class="col-sm-2">
+						    <img src=<#%= (@peer_teachers.find_by email: pt2).image %> >
+					    </div>
+    					<div class="col-sm-4">
+    						<h2 class="card-header" style="color:white;"><#%= (@peer_teachers.find_by email: pt2).name %></h2>
+      				</div>
+      				<div class="col-sm-3">
+      					  <h3>Courses: </h3>
+      					  CSCE <#%= (@peer_teachers.find_by email: pt2).courselist %>  
+      					</div>
+      				<div class="col-sm-3">
+    					  <h3>Office Hours:</h3>  
+    					  <#% @office_hours.where(email: pt2).find_each do |time| 
+  					      sHour=""
+  					      sMin=""
+  					      sTOD=""
+  					      eHour=""
+  					      eMin=""
+    					    eTOD=""
+    					    if time.sHour>12
+    					      sHour=time.sHour-12
+    					      sTOD="pm"
+    					    else
+    					      sHour=time.sHour
+    					      if time.sHour==12
+    					        sTOD="pm"
+    					      else
+    					        sTOD="am"
+    					      end
+    					    end
+    					    if time.sMin==0
+    					      sMin="00"
+    					    else 
+    					      sMin=time.sMin
+    					    end
+    					    if time.eHour>12
+    					      eHour=time.eHour-12
+    					      eTOD="pm"
+    					    else
+    					      eHour=time.eHour
+    					      if time.eHour==12
+    					        eTOD="pm"
+    					      else
+    					        eTOD="am"
+    					      end
+    					    end
+    					    if time.eMin==0
+    					      eMin="00"
+    					    else 
+    					      eMin=time.eMin
+    					    end
+    					  %>
+  					      <#%= time.dow %> <#%= sHour %>:<#%= sMin %><#%= sTOD %> - <#%= eHour %>:<#%= eMin %><#%= eTOD %>
+                  <br>
+                <#% end %>
+    					</div>
+    			  </div>
+    		  </div>
+				</div>
+		  <#% end %>
+		</div>
+	<#% end %>
+<#% end %>-->
+
+<!--<table>
+<tbody>
+  <#% @office_hours.each do |oh| %>
+    <tr>
+      <td style="color:white;">
+        <#%= oh.email %>
+      </td>
+      <td style="color:white;">
+        <#%= oh.dow %>
+      </td>
+      <td style="color:white;">
+        <#%= oh.sHour %>
+      </td>
+      <td style="color:white;">
+        <#%= oh.sMin %>
+      </td>
+      <td style="color:white;">
+        <#%= oh.eHour %>
+      </td>
+      <td style="color:white;">
+        <#%= oh.eMin %>
+      </td>
+    </tr>
+  <#% end %>
+</tbody>
+</table>-->

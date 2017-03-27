@@ -7,20 +7,38 @@ html, body {
 
 header {
   color: #BFBFBF;
+  font-family: 'Open Sans';
 }
 
 sub-header {
 	font-size:24px;
+	font-family: 'Open Sans';
 	color: #BFBFBF;
 }
 
-.button {
+text {
+	font-size:18px;
+	font-family: 'Open Sans';
+	color: #BFBFBF;
+}
+
+label {
+	font-size:18px;
+	font-family: 'Open Sans';
+	color: #BFBFBF;
+}
+
+tab {
+  margin-left:4em
+}
+
+.btn-link {
 	background-color: #262626;
 	font-size:16px;
+	font-family: 'Open Sans';
 	color:#BFBFBF;
-	padding: 16px;
-	border-radius: 8px;
-	border-collapse: separate; 
+	padding: 2px 5px;
+	border-radius: 2px;
 	text-decoration: none;
 	
 	-webkit-transition-duration: 0.4s; /* Safari */
@@ -28,12 +46,10 @@ sub-header {
     cursor: pointer;
 }
 
-.button:hover {
+.btn-link:hover {
   background-color: #BFBFBF; 
   color:#0D0D0D;
   text-decoration: none;
-  padding: 16px;
-  border-radius: 8px;
 	border-collapse: separate;
 }
 
@@ -44,20 +60,8 @@ container {
   justify-content: center;
 }
 
-/*card {
-  flex: 1;
-  height: 100px;
-  width: 200px;
-  border-radius: 0px;
-  margin: 5px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #BFBFBF;
-  font-family: 'Open Sans';
-}*/
-
 input[type=text] {
-	width: 50%;
+	width: 15%;
 	margin: 8px;
 	background-color: #BFBFBF;
   font-family: 'Open Sans';
@@ -77,45 +81,66 @@ input[type=submit] {
   cursor: pointer;
 }
 
-/*jaiden's stuff that kyra has not touched yet*/
-
-@media (min-width: 1600px) {
-  .container {
-    width: 1500px;
-  }
-} /* this is bootstrap stuff and might not actually be needed, delete if unnecessary */
-
-.card {
-  border: 2px solid;
-  margin: 5px;
-  padding: 20px;
-  background-color: #262626;
-	color:#BFBFBF;
-  height: 280px;
+/* flex */
+.row-flex {  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex:1 1 auto;
 }
 
-.short-card {
-  border: 2px solid;
-  margin: 5px;
-  padding: 20px;
-  background-color: #262626;
-  color: #BFBFBF;
-  height: 100px;
+.row-flex-wrap {
+	-webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex:0;
 }
 
-.profile-img {
-  width: 50%; 
+/* navbar */
+.navbar {
+  min-height:28px; 
+  height: 28px; 
+}
+.navbar .navbar-nav > li > a {
+  padding-top: 0px; 
+  padding-bottom: 0px; 
+  line-height: 28px;
 }
 
-.card-header {
-  font-size: 40px;
+/* dropdown */
+.dropdown-menu.columns-3 {
+	min-width: 200px;
 }
 
-.classes-available {
-  font-size: 24px;
+.dropdown-menu li a {
+	padding: 2px 25%;
+	font-weight: 300;
 }
 
-table, th, td {
-    border: 1px solid black;
-    color: white;
+.multi-column-dropdown {
+	list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.multi-column-dropdown li a {
+  text-align: left;
+	display: block;
+	clear: both;
+	color: #333;
+}
+
+.multi-column-dropdown li a:hover {
+	text-decoration: none;
+	text-align: left;
+	color: #262626;
+	background-color: #999;
+}
+ 
+@media (max-width: 767px) {
+	.dropdown-menu.multi-column {
+		min-width: 240px !important;
+		overflow-x: hidden;
+	}
 }

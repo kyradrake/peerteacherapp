@@ -39,18 +39,19 @@ ActiveRecord::Schema.define(version: 20170308014608) do
 
   create_table "office_hours", force: :cascade do |t|
     t.integer  "timeID"
-    t.string   "netID"
+    t.string   "email"
     t.string   "dow"
     t.integer  "sHour"
     t.integer  "sMin"
     t.integer  "eHour"
     t.integer  "eMin"
+    t.string   "change"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "peer_teachers", force: :cascade do |t|
-    t.string   "netID"
+    t.string   "email"
     t.string   "name"
     t.string   "courselist"
     t.string   "timelist"
@@ -61,13 +62,15 @@ ActiveRecord::Schema.define(version: 20170308014608) do
 
   create_table "updates", force: :cascade do |t|
     t.integer  "timeID"
-    t.string   "netID"
+    t.string   "email"
     t.string   "dow"
     t.integer  "sHour"
     t.integer  "sMin"
     t.integer  "eHour"
     t.integer  "eMin"
-    t.string   "flag"
+    t.string   "oldDate"
+    t.string   "newDate"
+    t.string   "action"
     t.string   "msg"
     t.integer  "approved"
     t.datetime "created_at", null: false

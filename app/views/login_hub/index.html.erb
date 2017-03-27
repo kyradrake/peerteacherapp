@@ -1,5 +1,48 @@
-<h1>Login for Regular User</h1>
-<h2>Welcome <%= current_user.last_name %>,<%= current_user.first_name %> </h2>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#136D71"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="refresh" content="300" />
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/home.css" media="screen"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <script src="/assets/pt_login.js"></script>
+    
+    <!-- JQuery stuff for Calendar -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        $( "#cancelCalendar" ).datepicker();
+      } );
+      $( function() {
+        $( "#rescheduleCalendar" ).datepicker();
+      } );
+    </script>
 
-
-<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>    
+    <title>Peer Teacher Web Portal</title>
+  </head>
+  <body>
+    <div id="logout">
+      <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Logout</a>
+    </div>
+    
+    <!-- default view for peer teacher page -->
+    <div id="pt view">
+      <%= render 'pt_view' %>
+    </div>
+    
+    <!-- view for changing scheduled office hours -->
+    <div id="schedule change view" style="display: none">
+      <%= render 'change_view' %>
+    </div>
+    
+  </body>
+</html>
