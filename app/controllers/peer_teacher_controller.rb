@@ -167,7 +167,9 @@ class PeerTeacherController < ApplicationController
             end
             
             days.each do |d| 
+              if(email != nil)
                 OfficeHour.create(:timeID => timeid, :email => email, :dow => d, :sHour => sh, :sMin => sm, :eHour => eh, :eMin => em, :change => "No Change")
+              end
             end
             timeid += 1
             timeList += timeid.to_s + ','
