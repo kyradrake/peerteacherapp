@@ -5,13 +5,13 @@ class ModelMailer < ApplicationMailer::Base
   #
   #   en.model_mailer.new_record_notification.subject
   #
-   default from: "postmaster@sandboxf28360f40d454ef09bf3ec3d0d980eed.mailgun.org"
+   #default from: "postmaster@sandboxf28360f40d454ef09bf3ec3d0d980eed.mailgun.org"
   
-  def new_record_notification(record)
-    @record = record
+  #def new_record_notification(record)
+   # @record = record
 
-    mail to: "kyradrake@tamu.edu", subject:"This is a Test" 
-  end
+    #mail to: "kyradrake@tamu.edu", subject:"This is a Test" 
+  #end
   
   
   
