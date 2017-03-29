@@ -8,8 +8,7 @@ class CreateUpdates < ActiveRecord::Migration
       t.integer :sMin
       t.integer :eHour
       t.integer :eMin
-      t.string :oldDate
-      t.string :newDate
+      t.string :date
       t.string :action
       t.string :msg
       t.integer :approved

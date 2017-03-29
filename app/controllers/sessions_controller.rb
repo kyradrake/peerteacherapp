@@ -19,10 +19,12 @@ class SessionsController < Devise::SessionsController
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
-    if( current_user.admin == true )
-      redirect_to login_hub_admin_path
-    else
+    if current_user.admin == true 
+      redirect_to admin_root_path 
+    elsif
       redirect_to login_hub_index_path
+    else
+      redirect_to root_path 
     end
   end
 

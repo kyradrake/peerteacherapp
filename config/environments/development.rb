@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.log_tags = [:remote_ip , lambda { |req| Time.now}]  #add tags to log messages 
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -40,14 +42,18 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # For Mailer
+  config.action_mailer.default_url_options = {:host => 'https://peerteacherapp2-k4sr4.c9users.io' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   :authentication => :plain,
   :address => "smtp.mailgun.org",
-  :port => 587,
+  :port => 2525,
+  #:port => 587,
   :domain => "sandboxf28360f40d454ef09bf3ec3d0d980eed.mailgun.org",
   :user_name => "postmaster@sandboxf28360f40d454ef09bf3ec3d0d980eed.mailgun.org",
-  :password => "webportal"
+  :password => "de75808bb50e0e705ed84dbf5293a58f",
+  :enable_starttls_auto => true,
+  :ssl =>false
 }
   
   

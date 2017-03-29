@@ -3,6 +3,9 @@ require 'open-uri'
 require 'json'
 
 class PeerTeacherController < ApplicationController
+    def func
+      #do nothing yet
+    end
     
     def peerTeacher_params
         params.require(:peerTeachers).permit(:email, :name, :courselist, :timelist)
@@ -16,9 +19,9 @@ class PeerTeacherController < ApplicationController
       end
       @peer_teachers = PeerTeacher.all
       @office_hours = OfficeHour.all
-      @updates = Update.all
       #populate_db
       availables
+      @updates = Update.all
     end
    
     def show
@@ -180,6 +183,16 @@ class PeerTeacherController < ApplicationController
           
           if(name != '')
             PeerTeacher.create(:email => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
+            nameArray = name.split( ' ' )   #split the name by space to enter into User model 
+            
+            if User.find_by_email( email ).nil? && !email.nil?  #or !email.empty? or !email.blank?
+              puts " " 
+              puts "!!!!!!!!!!!!!!!!!!!!!!!!!TESTING #{email}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+              puts " "
+              User.create( :email => email, :first_name => nameArray[ 0 ], :last_name => nameArray[ 1 ], :password => 'peerteacher')
+            end
+            
+            
           end
         end 
         redirect_to home_index_path
@@ -188,8 +201,10 @@ class PeerTeacherController < ApplicationController
     def availables
       @time = Time.new
       centralHour = @time.hour - 5
+      correctedDay = @time.wday
       if(centralHour < 0)
         centralHour += 24
+        correctedDay -= 1
       end
       
       today = (@time.month.to_s + "/" + @time.day.to_s + "/" + @time.year.to_s)
@@ -207,63 +222,60 @@ class PeerTeacherController < ApplicationController
       #session[:available_pts].push("amanda.bsaibes@tamu.edu")
       #session[:available_pts].push("cangkevin@tamu.edu")
       Update.delete_all #MAKE SURE TO COMMENT THIS WHEN DONE WITH TESTING
-      @office_hours.where(email: "darrencola@tamu.edu").find_each do |kevinTime|
-        if(kevinTime.dow == "Su")
+      @office_hours.where(email: "c.hinesman@tamu.edu").find_each do |kevinTime|
+        if(kevinTime.dow == "T")
           kevinTime.update(change: "Delete")
-          Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :oldDate => "3/26/2017", :newDate => "", :action => "Delete", :msg => "TEST 1", :approved => 1)
+          Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :date => "3/28/2017", :action => "Delete", :msg => "I have a job interview at the same time, so I cannot attend my office hours today.", :approved => 1)
+          session[:kevin] = Update.find_by(email: kevinTime.email).msg
         end
       end
       
       @office_hours.where(email: "tcarlson25@tamu.edu").find_each do |tylerTime|
-        if(tylerTime.dow == "Su")
-          tylerTime.update(change: "3/26/2017")
-          Update.create(:timeID => tylerTime.timeID, :email => tylerTime.email, :dow => "Su", :sHour => 16, :sMin => 40, :eHour => 16, :eMin => 56, :oldDate => "3/26/2017", :newDate => "3/26/2017", :action => "Update", :msg => "TEST 2", :approved => 1)
-        end
+        #if(tylerTime.dow == "")
+          tylerTime.update(change: "3/28/2017")
+          Update.create(:timeID => tylerTime.timeID, :email => tylerTime.email, :dow => "T", :sHour => 16, :sMin => 40, :eHour => 18, :eMin => 56, :date => "3/26/2017", :action => "Add", :msg => "TEST 2", :approved => 1)
+        #end
       end
       
       @updates = Update.all
-      
-      updateDone = false
-      origDone = false
-      
+
       @updates.each do |oh|
-        if(oh.action == "Update" && oh.newDate == today)
+        if(oh.action == "Add" && oh.date == today)
           if(oh.dow == "M")
-            if(@time.wday != 1)
+            if(correctedDay != 1)
               next
             end
           end
           if(oh.dow == "T")
-            if(@time.wday != 2)
+            if(correctedDay != 2)
               next
             end
           end
           if(oh.dow == "W")
-            if(@time.wday != 3)
+            if(correctedDay != 3)
               next
             end
           end
           if(oh.dow == "R")
-            if(@time.wday != 4)
+            if(correctedDay != 4)
               next
             end
           end
           if(oh.dow == "F")
-            if(@time.wday != 5)
+            if(correctedDay != 5)
               next
             end
           end
           if(oh.dow == "Su")
-            if(@time.wday != 0)
+            if(correctedDay != 0)
               next
             end
           end
           
           if (oh.sHour > centralHour || oh.eHour < centralHour)
             if(oh.eHour < centralHour)
-              updateDone = true
               orig = @office_hours.find_by(timeID: oh.timeID)
-              if(orig && updateDone && origDone)
+              if(orig)
                 orig.update(change: "No Change")
                 session[oh.email] = 0
                 oh.destroy
@@ -284,40 +296,38 @@ class PeerTeacherController < ApplicationController
             end
           end
           
-          if(oh.newDate == today)
-            session[:available_pts].push(oh.email)
-          end
+          session[:available_pts].push(oh.email)
         end
       end
       
       @office_hours.each do |oh|
         if(oh.dow == "M")
-          if(@time.wday != 1)
+          if(correctedDay != 1)
             next
           end
         end
         if(oh.dow == "T")
-          if(@time.wday != 2)
+          if(correctedDay != 2)
             next
           end
         end
         if(oh.dow == "W")
-          if(@time.wday != 3)
+          if(correctedDay != 3)
             next
           end
         end
         if(oh.dow == "R")
-          if(@time.wday != 4)
+          if(correctedDay != 4)
             next
           end
         end
         if(oh.dow == "F")
-          if(@time.wday != 5)
+          if(correctedDay != 5)
             next
           end
         end
         if(oh.dow == "Su")
-          if(@time.wday != 0)
+          if(correctedDay != 0)
             next
           end
         end
@@ -326,12 +336,11 @@ class PeerTeacherController < ApplicationController
           if(oh.eHour < centralHour)
             u = Update.find_by(timeID: oh.timeID)
             if(u)
-              origDone = true
-              if(oh.change == "Delete" && u.oldDate == today)
+              if(oh.change == "Delete" && u.date == today)
                 oh.update(change: "No Change")
                 session[oh.email] = 0
                 u.destroy
-              elsif(origDone && updateDone && u.oldDate == today)
+              elsif(u.date == today)
                 oh.update(change: "No Change")
                 session[oh.email] = 0
                 u.destroy
@@ -356,9 +365,9 @@ class PeerTeacherController < ApplicationController
         u = Update.find_by(timeID: oh.timeID)
         
         if(u)
-          if(oh.change == "Delete" && u.oldDate == today)
+          if(oh.change == "Delete" && u.date == today)
             session[oh.email] = 1
-          elsif(oh.change == u.oldDate && oh.change == today)
+          elsif(oh.change == u.date && oh.change == today)
             session[oh.email] = 1
           end
         end

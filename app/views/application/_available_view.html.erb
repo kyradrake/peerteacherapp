@@ -1,75 +1,38 @@
 <div id="flexbox">
   <div class="row row-flex row-flex-wrap">
     <% if(session[:available_pts]) %>
-    <% session[:available_pts].each do |pt| %>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-body" <% if(session[pt] == 1) %> style="background-color: #000000; color: #ffffff;" <% end %>>
-          <div class="col-sm-3">
-				    <img src=<%= (@peer_teachers.find_by email: pt).image %> >
-			    </div>
-			    <div class="col-sm-6">
-            <h3><%= (@peer_teachers.find_by email: pt).name %></h3>
-            <h4>Courses: </h4>
-    				<p>  CSCE <%= (@peer_teachers.find_by email: pt).courselist %>   </p>
-            <h4>Office Hours:</h4> 
-  					  <% @office_hours.where(email: pt).find_each do |time| 
-  					    sHour=""
-  					    sMin=""
-  					    sTOD=""
-  					    eHour=""
-  					    eMin=""
-  					    eTOD=""
-  					    
-  					    if time.sHour>12
-  					      sHour=time.sHour-12
-  					      sTOD="pm"
-  					    else
-  					      sHour=time.sHour
-  					      if time.sHour==12
-    					        sTOD="pm"
-    					      else
-    					        sTOD="am"
-    					      end
-  					    end
-  					    
-  					    if time.sMin==0
-  					      sMin="00"
-  					    else 
-  					      sMin=time.sMin
-  					    end
-  					    
-  					    if time.eHour>12
-  					      eHour=time.eHour-12
-  					      eTOD="pm"
-  					    else
-  					      eHour=time.eHour
-  					      if time.eHour==12
-    					        eTOD="pm"
-    					      else
-    					        eTOD="am"
-    					      end
-  					    end
-  					    
-  					    if time.eMin==0
-  					      eMin="00"
-  					    else 
-  					      eMin=time.eMin
-  					    end
-  					  %>
-  				    <%= time.dow %> <%= sHour %>:<%= sMin %><%= sTOD %> - <%= eHour %>:<%= eMin %><%= eTOD %>
-              <br>
-              <% end %>
-          </div>
-          <% if (session[pt] == 1) %>
+      <% session[:available_pts].each do |pt| %>
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-primary">
+          <div class="panel-body" <% if(session[pt] == 1) %> style="background-color: #000000; color: #ffffff;" <% end %>>
             <div class="col-sm-3">
-              <p>Message: <% @updates.find_by(email: pt).msg %></p>
+  				    <img src=<%= (@peer_teachers.find_by email: pt).image %> >
+  			    </div>
+  			    <div class="col-sm-5">
+              <h3><%= (@peer_teachers.find_by email: pt).name %></h3>
+              <h4>Courses: </h4>
+      				<p>  CSCE <%= (@peer_teachers.find_by email: pt).courselist %>   </p>
+              <h4>Office Hours:</h4> 
+    					  <% @office_hours.where(email: pt).find_each do |time| %>
+    				      <% timeDetails = beautify_time(time) %>
+    				      <%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
+                  <br>
+                <% end %>
             </div>
-          <% end %>
+            <% if (session[pt] == 1) %>
+              <div class="col-sm-4">
+                <br>
+                <p>Message:</p>
+                <% message = format_message(@updates.find_by(email: pt).msg) %>
+                <% message.each do |m| %>
+                  <p><%= m %></p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
-    <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>

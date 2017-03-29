@@ -4,6 +4,7 @@ class LoginHubController < PeerTeacherController
   def index
     @office_hours = OfficeHour.all
     @peer_teachers = PeerTeacher.all
+    @updates = Update.all
     puts "TESTING TESTING TESTING "
     puts current_user.email 
   end

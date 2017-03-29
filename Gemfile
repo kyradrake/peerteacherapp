@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
+gem 'activeadmin', github: 'activeadmin'
 
 gem 'whenever', :require => false
 gem 'rufus-scheduler'
@@ -56,6 +57,8 @@ group :development do
   gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'rspec'
+  gem 'actionmailer'
+  gem 'quiet_assets'
 end
 
 group :test do

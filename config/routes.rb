@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :admins, controller: {sessions: "sessions"}
-  devise_for :users, controllers: {sessions: "sessions"}
+  ActiveAdmin.routes(self)
+  devise_for :users, controllers: {sessions: "sessions", sign_in: 'login', sign_out: 'logout'}
+  
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy' 
+  end
   
   get 'login_hub/index'                 #the index is for the regular user 
   get 'login_hub/admin'                 #for the admin page 
