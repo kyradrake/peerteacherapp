@@ -1,6 +1,6 @@
-  require 'action_mailer'
-   require 'active_support'
-require 'active_support/core_ext'
+  #require 'action_mailer'
+   #require 'active_support'
+#require 'active_support/core_ext'
 
 class MailerController < ApplicationController
 
@@ -15,8 +15,8 @@ class MailerController < ApplicationController
   
   #create
   
-  @record = "BOB OBJECT"
+  #@record = "BOB OBJECT"
   
-  ModelMailer.new_record_notification(@record).deliver
+  #ModelMailer.new_record_notification(@record).deliver
 
 end
