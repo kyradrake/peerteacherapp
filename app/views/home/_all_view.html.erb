@@ -1,26 +1,26 @@
-<!--<div id="container-fluid">
+<div id="container-fluid">
   <div class="row row-flex row-flex-wrap">
-    <#% @peer_teachers.each do |pt| %>
+    <% @peer_teachers.each do |pt| %>
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
       <div class="panel panel-primary">
         <div class="panel-body">
           <div class="col-sm-3">
-				    <img src=<#%= pt.image %> >
+				    <img src=<%= pt.image %> >
 			    </div>
 			    <div class="col-sm-9">
-            <h3><#%= pt.name %></h3>
+            <h3><%= pt.name %></h3>
             <h4>Courses: </h4>
-    				<p>  CSCE <#%= pt.courselist %> </p>
+    				<p>  CSCE <%= pt.courselist %> </p>
             <h4>Office Hours:</h4>  
-  					  <#% @office_hours.where(email: pt.email).find_each do |time| %>
-  					    <#% timeDetails = beautify_time(time) %>
-  				      <#%= time.dow %> <#%= timeDetails[0] %>:<#%= timeDetails[1] %><#%= timeDetails[2] %> - <#%= timeDetails[3] %>:<#%= timeDetails[4] %><#%= timeDetails[5] %>
+  					  <% @office_hours.where(email: pt.email).find_each do |time| %>
+  					    <% timeDetails = beautify_time(time) %>
+  				      <%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
                 <br>
-              <#% end %>
+              <% end %>
           </div>
         </div>
       </div>
     </div>
-    <#% end %>
+    <% end %>
   </div>
-</div>-->
+</div>
