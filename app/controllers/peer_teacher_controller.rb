@@ -221,21 +221,21 @@ class PeerTeacherController < ApplicationController
       #For testing
       #session[:available_pts].push("amanda.bsaibes@tamu.edu")
       #session[:available_pts].push("cangkevin@tamu.edu")
-      Update.delete_all #MAKE SURE TO COMMENT THIS WHEN DONE WITH TESTING
-      @office_hours.where(email: "c.hinesman@tamu.edu").find_each do |kevinTime|
-        if(kevinTime.dow == "T")
-          kevinTime.update(change: "Delete")
-          Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :date => "3/28/2017", :action => "Delete", :msg => "I have a job interview at the same time, so I cannot attend my office hours today.", :approved => 1)
-          session[:kevin] = Update.find_by(email: kevinTime.email).msg
-        end
-      end
-      
-      @office_hours.where(email: "tcarlson25@tamu.edu").find_each do |tylerTime|
-        #if(tylerTime.dow == "")
-          tylerTime.update(change: "3/28/2017")
-          Update.create(:timeID => tylerTime.timeID, :email => tylerTime.email, :dow => "T", :sHour => 16, :sMin => 40, :eHour => 18, :eMin => 56, :date => "3/26/2017", :action => "Add", :msg => "TEST 2", :approved => 1)
+      #Update.delete_all #MAKE SURE TO COMMENT THIS WHEN DONE WITH TESTING
+      #@office_hours.where(email: "c.hinesman@tamu.edu").find_each do |kevinTime|
+       # if(kevinTime.dow == "T")
+        #  kevinTime.update(change: "Delete")
+         # Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :date => "3/28/2017", :action => "Delete", :msg => "I have a job interview at the same time, so I cannot attend my office hours today.", :approved => 1)
+          #session[:kevin] = Update.find_by(email: kevinTime.email).msg
         #end
-      end
+      #end
+      
+      #@office_hours.where(email: "tcarlson25@tamu.edu").find_each do |tylerTime|
+        #if(tylerTime.dow == "")
+       #   tylerTime.update(change: "3/28/2017")
+        #  Update.create(:timeID => tylerTime.timeID, :email => tylerTime.email, :dow => "T", :sHour => 16, :sMin => 40, :eHour => 18, :eMin => 56, :date => "3/26/2017", :action => "Add", :msg => "TEST 2", :approved => 1)
+        #end
+      #end
       
       @updates = Update.all
 
