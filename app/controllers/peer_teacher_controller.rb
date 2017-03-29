@@ -181,7 +181,7 @@ class PeerTeacherController < ApplicationController
           
           copyhours.clear
           
-          if(name != '')
+          if(name != '' && email != '')
             PeerTeacher.create(:email => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
             nameArray = name.split( ' ' )   #split the name by space to enter into User model 
             
