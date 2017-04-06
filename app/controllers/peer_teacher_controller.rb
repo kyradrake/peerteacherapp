@@ -3,12 +3,19 @@ require 'open-uri'
 require 'json'
 
 class PeerTeacherController < ApplicationController
-    def func
-      #do nothing yet
+  skip_before_action :require_login, only: [:index, :show, :new, :create, :edit, :update]
+    
+    helper_method :sign_user_off
+    
+    def sign_user_off 
+      if user_signed_in?
+        destroy_user_session_path
+      end
     end
     
-    def peerTeacher_params
-        params.require(:peerTeachers).permit(:email, :name, :courselist, :timelist)
+  
+    def func n
+      return n
     end
     
     def index
@@ -22,51 +29,16 @@ class PeerTeacherController < ApplicationController
       #populate_db
       availables
       @updates = Update.all
-    end
-   
-    def show
-        @peer_teacher = PeerTeacher.find(params[:id])
-    end
-   
-    def new
-        @peer_teacher = PeerTeacher.new
-        @office_hours = OfficeHour.all
-    end
-   
-    def create
-        @peer_teacher = PeerTeacher.new(peerTeacher_params)
-	
-        if @peer_teacher.save
-            redirect_to :action => 'list'
-        else
-            @office_hours = OfficeHour.all
-            render :action => 'new'
-        end
-    end
-   
-    def edit
-        @peer_teacher = PeerTeacher.find(params[:id])
-        @office_hours = OfficeHour.all
-    end
-   
-    def update
-        @peer_teacher = PeerTeacher.find(params[:id])
-	
-        if @peer_teacher.update_attributes(book_param)
-           redirect_to :action => 'show', :id => @peer_teacher
-        else
-           @office_hours = OfficeHour.all
-           render :action => 'edit'
-        end
-    end
-   
-    def delete
-        PeerTeacher.find(params[:id]).destroy
-        redirect_to :action => 'list'
-    end
-    
-    def show_office_hours
-        @office_hours = OfficeHour.find(params[:id])
+      
+      # Mail.deliver do
+      # to 'justing169589@gmail.com'
+      # from 'justafakemeail@gmail.com'
+      # subject 'testing sendmail'
+      # body 'testing sendmail'
+      # end
+      
+      
+      
     end
     
     def populate_db
@@ -167,9 +139,7 @@ class PeerTeacherController < ApplicationController
             end
             
             days.each do |d| 
-              if(email != nil)
                 OfficeHour.create(:timeID => timeid, :email => email, :dow => d, :sHour => sh, :sMin => sm, :eHour => eh, :eMin => em, :change => "No Change")
-              end
             end
             timeid += 1
             timeList += timeid.to_s + ','
@@ -183,13 +153,13 @@ class PeerTeacherController < ApplicationController
           
           copyhours.clear
           
-          if(name != '' && email != nil)
+          if(name != nil)
             PeerTeacher.create(:email => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
             nameArray = name.split( ' ' )   #split the name by space to enter into User model 
             
             if User.find_by_email( email ).nil? && !email.nil?  #or !email.empty? or !email.blank?
               puts " " 
-              puts "!!!!!!!!!!!!!!!!!!!!!!!!!TESTING #{email}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+              puts "!!!!!!!!!!!!!!!!!!!!!!!!! Default Input TESTING #{email}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
               puts " "
               User.create( :email => email, :first_name => nameArray[ 0 ], :last_name => nameArray[ 1 ], :password => 'peerteacher')
             end
@@ -224,12 +194,11 @@ class PeerTeacherController < ApplicationController
       #session[:available_pts].push("amanda.bsaibes@tamu.edu")
       #session[:available_pts].push("cangkevin@tamu.edu")
       #Update.delete_all #MAKE SURE TO COMMENT THIS WHEN DONE WITH TESTING
-      #@office_hours.where(email: "c.hinesman@tamu.edu").find_each do |kevinTime|
-       # if(kevinTime.dow == "T")
-        #  kevinTime.update(change: "Delete")
-         # Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :date => "3/28/2017", :action => "Delete", :msg => "I have a job interview at the same time, so I cannot attend my office hours today.", :approved => 1)
-          #session[:kevin] = Update.find_by(email: kevinTime.email).msg
-        #end
+      #@office_hours.where(email: "josiah@coad.net").find_each do |kevinTime|
+      #  if(kevinTime.dow == "R")
+      #    kevinTime.update(change: "Delete")
+      #    Update.create(:timeID => kevinTime.timeID, :email => kevinTime.email, :dow => "", :sHour => "", :sMin => "", :eHour => "", :eMin => "", :date => "3/30/2017", :action => "Delete", :msg => "I have a job interview at the same time, so I cannot attend my office hours today.", :approved => 1)
+      #  end
       #end
       
       #@office_hours.where(email: "tcarlson25@tamu.edu").find_each do |tylerTime|

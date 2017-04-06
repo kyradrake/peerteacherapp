@@ -1,36 +1,43 @@
-<sub-header>Hello <%= current_user.first_name %> <%= current_user.last_name %>,<br></sub-header>
-<input type="submit" value="Change Schedule" onclick="return showChangeDiv()"></submit>  <!-- onclick="document.getElementById('login modal').style.display='none'" -->
-<br>
-<sub-header>Hours: </sub-header>
-<br>
-<text id="hours">
-  <%# Current User will have email, first_name, last_name email only %>
-  <% @office_hours.where(email: current_user.email).find_each do |time| %>
-    <% timeDetails = beautify_time(time) %>
-    <tab></tab><%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
-    <br>
-  <% end %>
-</text>
-
-<sub-header>Changes: <br></sub-header>
-  <% search = @updates.find_by_email(current_user.email)
-    if search.blank? %>
-      <tab></tab>
-      <text>No upcoming schedule changes</text>
-      <br>
-  <% end %>
-  <% @updates.where(email: current_user.email).find_each do |time| %>
-    <% timeDetails = beautify_time(time) %>
-    <tab></tab><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
-    <tab></tab><tab></tab><%= time.msg %>
-    <br>
-  <% end %>      
-        
-
-<sub-header>Courses: <br></sub-header>
-<text id="courses">
-  <% @peer_teachers.where(email: current_user.email).find_each do |pt| %>
-  <tab></tab>CSCE <%= pt.courselist %>
+<div style="padding: 30px">
+  <sub-header>Hello <%= current_user.first_name %> <%= current_user.last_name %>,<br></sub-header>
   <br>
-  <% end %>
-</text>
+  <div class="w3-center">
+    <a class="bar-btn" onclick="return showChangeDiv()">Change Schedule</a>  <!-- onclick="document.getElementById('login modal').style.display='none'" -->
+  </div>
+  <br>
+  <sub-header>Hours: </sub-header>
+  <br>
+  <text id="hours">
+    <%# Current User will have email, first_name, last_name email only %>
+    <% @office_hours.where(email: current_user.email).find_each do |time| %>
+      <% timeDetails = beautify_time(time) %>
+      <tab></tab><%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
+      <br>
+    <% end %>
+  </text>
+  
+  <sub-header>Changes: <br></sub-header>
+    <% search = @updates.find_by_email(current_user.email)
+      if search.blank? %>
+        <tab></tab>
+        <text>No upcoming schedule changes</text>
+        <br>
+    <% end %>
+    <% @updates.where(email: current_user.email).find_each do |time| %>
+      <tab></tab><text><%= time.action %></text>
+      <% timeDetails = beautify_time(time) %>
+      <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+      <tab></tab><tab></tab><text><%= time.msg %></text>
+      <br>
+    <% end %>      
+          
+  
+  <sub-header>Courses: <br></sub-header>
+  <text id="courses">
+    <% @peer_teachers.where(email: current_user.email).find_each do |pt| %>
+    <tab></tab>CSCE <%= pt.courselist %>
+    <br>
+    <% end %>
+  </text>
+
+</div>

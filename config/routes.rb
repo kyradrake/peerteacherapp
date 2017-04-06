@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/ptc', to: 'ptc#ptc'
   get '/admin', to: 'admin#admin'
   get '/pt', to: 'pt#pt'
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -32,10 +33,10 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-    resources :peer_teachers do
+    resources :peer_teachers
       resources :office_hours
       resources :updates
-    end
+    #end
 
   # Example resource route with options:
   #   resources :products do

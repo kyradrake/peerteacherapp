@@ -5,10 +5,9 @@ class LoginHubController < PeerTeacherController
     @office_hours = OfficeHour.all
     @peer_teachers = PeerTeacher.all
     @updates = Update.all
-    puts "TESTING TESTING TESTING "
-    puts current_user.email 
+    @time = Time.new
+    @today = (@time.month.to_s + "/" + @time.day.to_s + "/" + @time.year.to_s)
+    puts "********#{request.remote_ip}: logged into peer teacher hub using email: #{current_user.email} "
   end
-  def admin
-    puts "Admin Page"
-  end
+
 end

@@ -31,7 +31,7 @@
   </head>
   <body>
     <div id="logout">
-      <a id="login button" class="button" style="float:right" onclick="document.getElementById('login modal').style.display='block'">Logout</a>
+      <%= link_to "Logout", destroy_user_session_path, :class => "button", :style => "float:right" %>
     </div>
     
     <!-- default view for peer teacher page -->
@@ -43,6 +43,5 @@
     <div id="schedule change view" style="display: none">
       <%= render 'change_view' %>
     </div>
-    
   </body>
 </html>

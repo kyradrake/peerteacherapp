@@ -3,9 +3,9 @@ require 'rails_helper'
 require 'office_hour_controller'
 
 RSpec.describe OfficeHourController, type: :controller do
-    describe "#sum" do
-        it "should be defined" do
-            expect { sum }.not_to raise_error
-        end
-    end
+    # describe "#sum" do
+    #     it "should be defined" do
+    #         expect { sum }.not_to raise_error
+    #     end
+    # end
 end

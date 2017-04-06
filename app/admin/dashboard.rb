@@ -10,12 +10,6 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
-  column("View User") do |user|
-    span link_to "View", "/mypath"
-    span link_to "Edit", "/mypath"
-    span link_to "Delete", "/mypath"
-  end
-
     
   end # content
 end

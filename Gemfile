@@ -30,6 +30,8 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'whenever', :require => false
 gem 'rufus-scheduler'
 
+gem 'bootstrap_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

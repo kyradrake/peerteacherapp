@@ -13,18 +13,17 @@ class SessionsController < Devise::SessionsController
   end
 
   # POST /resource/sign_in
-  def create
-    puts "TESTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  # Login In => ApplicationController(method=>require_login) -> Session_controller(method=>create)
+  def create  
+    #byebug
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
-    if current_user.admin == true 
+    if is_admin?
       redirect_to admin_root_path 
-    elsif
+    elsif user_signed_in? 
       redirect_to login_hub_index_path
-    else
-      redirect_to root_path 
     end
   end
 

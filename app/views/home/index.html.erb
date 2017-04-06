@@ -39,6 +39,21 @@
         </div>
       </div>
       
+      <div id="flash" class="flash_messages">
+        <% flash.each do |name,msg| %>
+          <div class='alert alert-<%= name %>' >
+            <%= msg %>
+          </div>
+        <% end %>
+      </div>
+      <!-- Remove the flash message using jquery --> 
+      <script type="text/javascript">
+        $(document).ready( function(){
+          setTimeout(function(){
+            $("#flash").remove();}, 5000);
+        })
+      </script>
+      
       <!-- View Button Bar -->
       <div class="container-fluid text-center">
         <a id="available button" class="btn-link" onclick="return showAvailableDiv()">Available</a>
