@@ -12,4 +12,8 @@ ActiveAdmin.register_page "Dashboard" do
 
     
   end # content
+  
+  action_item only: :index do
+    link_to 'Populate Database'
+  end
 end
