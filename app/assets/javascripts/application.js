@@ -43,3 +43,37 @@ function showScheduleChangesDiv() {
   document.getElementById("all view").style.display = "none";
   return false;
 }
+
+
+function showclass(classvar)
+{
+  alert(classvar);
+  
+  
+  //document.getElementById("classnum view").style.display = "block";
+  var items = document.getElementsByTagName('div');
+  
+  for(var i = items.length;i--;)
+  {
+    var item = items[i];
+    alert(items[i].id)
+    if(items[i].getElementById == classvar)
+    {
+      items[i].style.display = 'block';
+     alert("Found element that matches classvar")
+    }
+    else
+    {
+     //items[i].style.display = 'none';
+    }
+    
+  }
+  
+  
+  
+  
+  document.getElementById("all view").style.display = "none";
+  document.getElementById("available view").style.display = "none";
+  document.getElementById("schedule changes view").style.display = "none";
+  
+}

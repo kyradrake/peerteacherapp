@@ -1,11 +1,14 @@
 <!---A button is click, which will have an id    this file will be rendered view that idea, and only display the users that match the class, use all view as template  --->
 
-<div id="container-fluid">
+
+<p>Test Sucessfulll</p>
+
+<div id="container-fluid2">
   <div class="row row-flex row-flex-wrap">
     <% @peer_teachers.each do |pt| %>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-      <div class="panel panel-primary">
-        <div class="panel-body">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" id = <%= pt.courselist %>  >
+      <div class="panel panel-primary" >
+        <div class="panel-body" >
           <div class="col-sm-3">
 				    <img src=<%= pt.image %> >
 			    </div>
@@ -26,3 +29,5 @@
     <% end %>
   </div>
 </div>
+
+
