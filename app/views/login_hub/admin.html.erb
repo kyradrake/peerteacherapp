@@ -1,9 +1,0 @@
-<h1>Login for Admin User</h1>
-<h2>Welcome Admin <%= current_user.last_name %> , <%= current_user.first_name %></h2>
-<%= link_to('Logout', destroy_user_session_path, :method => :delete) %> 
-
-<!--Just put this here for when we have an admin page!-->
-<div style="color:white;">
-    <%= link_to 'Populate Database',  home_populate_db_path %>
-</div>
-

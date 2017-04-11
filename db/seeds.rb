@@ -17,14 +17,34 @@
 #               {:timeID => 103, :netID => 'cooper', :dow => 'WED', :sHour => 2, :sMin => 15, :eHour => 3, :eMin => 45},
 #               {:timeID => 104, :netID => 'cr7', :dow => 'FRI', :sHour => 9, :sMin => 50, :eHour => 1, :eMin => 50},
 #        ]  
-user = [{email: 'joelescobar@tamu.edu', first_name: 'Joel', last_name: 'Escobar', password: 'user' },
-        {email: 'kyradrake@tamu.edu', first_name: 'Kyra', last_name: 'Drake', password: 'pass' }, 
-        {email: 'testing@tamu.edu', first_name: 'John', last_name: 'Hancok', password: 'admin', admin: true } ]           
+#user = [{email: 'joelescobar@tamu.edu', first_name: 'Joel', last_name: 'Escobar', password: 'user' },
+#        {email: 'kyradrake@tamu.edu', first_name: 'Kyra', last_name: 'Drake', password: 'pass' }, 
+#        {email: 'testing@tamu.edu', first_name: 'John', last_name: 'Hancok', password: 'admin', admin: true } ]           
         
 
-user.each do |u|
-    User.create!( u )
-end
+#user.each do |u|
+#    User.create!( u )
+#end
+
+Administrator.create( 
+        :first_name     => "Joel",
+        :last_name      => "Escobar",
+        :user_attributes => {
+            :email          => "Joelescobar@tamu.edu",
+            :password       => "admin",
+            :password_confirmation => "admin",
+        }
+    )
+
+PeerTeacherLogin.create(
+        :first_name     => "Bob",
+        :last_name      => "Dylan",
+        :user_attributes => {
+            :email          => "Bobdylan@tamu.edu",
+            :password       => "user",
+            :password_confirmation => "user", 
+        }
+    )
 
 #peerTeachers.each do |pt|
 #  PeerTeacher.create!(pt)

@@ -6,7 +6,7 @@
 <div id="container-fluid2">
   <div class="row row-flex row-flex-wrap">
     <% @peer_teachers.each do |pt| %>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" id = <%= pt.courselist %>  >
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 selective" id =  "<%= pt.courselist.tr(',','') %>"   >
       <div class="panel panel-primary" >
         <div class="panel-body" >
           <div class="col-sm-3">

@@ -1,0 +1,25 @@
+<%= form_for(@peer_teacher_login) do |f| %>
+  <% if @peer_teacher_login.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@peer_teacher_login.errors.count, "error") %> prohibited this peer_teacher_login from being saved:</h2>
+
+      <ul>
+      <% @peer_teacher_login.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

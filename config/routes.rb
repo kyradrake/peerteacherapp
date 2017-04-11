@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :peer_teacher_logins
+  resources :administrators
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {sessions: "sessions", sign_in: 'login', sign_out: 'logout'}
   

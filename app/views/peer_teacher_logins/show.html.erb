@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @peer_teacher_login.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @peer_teacher_login.last_name %>
+</p>
+
+<%= link_to 'Edit', edit_peer_teacher_login_path(@peer_teacher_login) %> |
+<%= link_to 'Back', peer_teacher_logins_path %>
