@@ -45,10 +45,10 @@ RSpec.describe PeerTeacherController, :type => :controller do
         end
         
         	#describe "It renders templates" do
-		it "should render the index template" do
-			get :index
-			expect(response).to render_template("index")
-		end
+# 		it "should render the index template" do
+# 			get :index
+# 			expect(response).to render_template("index")
+# 		end
         
         # subject { get :populate_db}
         

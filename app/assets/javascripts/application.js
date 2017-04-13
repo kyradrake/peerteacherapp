@@ -19,6 +19,7 @@ function showAvailableDiv() {
   // show available view div
   document.getElementById("available view").style.display = "block";
   
+   document.getElementById("tochange").innerHTML = "Displaying Available Peer Teachers";
   // hide all view div and schedule changes view div
   document.getElementById("all view").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
@@ -38,7 +39,8 @@ function showAvailableDiv() {
 
 function showAllDiv() {
   document.getElementById("all view").style.display = "block";
-  
+     document.getElementById("tochange").innerHTML = "Displaying All Peer Teachers";
+
   document.getElementById("available view").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
   document.getElementById("classnum view").style.display = "none";
@@ -57,7 +59,8 @@ function showAllDiv() {
 
 function showScheduleChangesDiv() {
   document.getElementById("schedule changes view").style.display = "block";
-  
+     document.getElementById("tochange").innerHTML = "Displaying Peer Teacher Schedule Changes";
+
   document.getElementById("available view").style.display = "none";
   document.getElementById("all view").style.display = "none";
   document.getElementById("classnum view").style.display = "none";
@@ -78,6 +81,9 @@ function showScheduleChangesDiv() {
 function showclass(classvar)
 {
  // alert(classvar);
+ 
+
+  document.getElementById("tochange").innerHTML = "Displaying Peer Teachers for CSCE " +classvar;
   
   document.getElementById("all view").style.display = "none";
   document.getElementById("available view").style.display = "none";
@@ -115,6 +121,7 @@ function showclass(classvar)
               {
                  list[i].style.display = 'block';
                 console.log("MATCH");
+                break;
               }
       }
      
@@ -146,6 +153,6 @@ function showclass(classvar)
   
   
   */
-  
+  return false;
   
 }

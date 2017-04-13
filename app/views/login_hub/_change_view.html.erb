@@ -63,7 +63,7 @@
       <%= f.select(:eMin, ['0', '15', '30', '45'], {}, {}) %>
       <br>
       <p>
-        <%= f.submit %>
+        <%= f.submit "Submit Change", :class => 'btn bar-btn' %>
       </p>
     <% end %> 
   </div>
@@ -121,7 +121,7 @@
       <%= f.text_area :reason, :rows => 3, :placeholder => "I am cancelling my office hours because I have an interview at the same time.", :required => true %>
       <br>
       <p>
-        <%= f.submit %>
+        <%= f.submit "Submit Change", :class => 'btn bar-btn' %>
       </p>
     <% end %> 
   </div>

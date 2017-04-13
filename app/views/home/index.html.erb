@@ -60,23 +60,14 @@
         <a id="all button" class="btn-link" onclick="return showAllDiv()">All</a> 
         <a id="schedule changes button" class="btn-link" onclick="return showScheduleChangesDiv()">Schedule Changes</a>
       </div>
-       <div class="container-fluid text-center" >
-        
-        
-		            <li style = "display:inline"><a href="#" id = "110" onclick="return showclass(110)">110</a></li>
-		            <li style = "display:inline"><a href="#" id = "111" onclick="return showclass(111)">111</a></li>
-		            <li style = "display:inline"><a href="#" id = "121" onclick="return showclass(121)">121</a></li>
-		            <li style = "display:inline"><a href="#" id = "206" onclick="return showclass(206)">206</a></li>
-		            <li style = "display:inline"><a href="#" id = "221" onclick="return showclass(221)">221</a></li>
-		            <li style = "display:inline"><a href="#" id = "222" onclick="return showclass(222)">222</a></li>
-		            <li style = "display:inline"><a href="#" id = "312" onclick="return showclass(312)">312</a></li>
-		            <li style = "display:inline"><a href="#" id = "313" onclick="return showclass(313)">313</a></li>
-		            <li style = "display:inline"><a href="#" id = "314" onclick="return showclass(314)">314</a></li>
-		            <li style = "display:inline"><a href="#" id = "315" onclick="return showclass(315)">315</a></li>
-		            <li style = "display:inline"><a href="#" id = "350" onclick="return showclass(350)">350</a></li>
-        
-        
+    
+      <div class="container-fluid text-center">
+          <p id="tochange" style ="color:white;">Displaying Available Peer Teachers</p> <p>   <a id="all button" onclick="return showAllDiv()">Show All</a> </p>
+      <%#= render 'display_link' %>
+    
       </div>
+    
+    
       <!-- Available View -->
       <div id="available view">
         <%= render 'available_view' %>
