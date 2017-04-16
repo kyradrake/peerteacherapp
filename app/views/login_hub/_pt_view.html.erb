@@ -1,10 +1,10 @@
 <div style="padding: 30px">
   <sub-header>Hello <%= @user.first_name %> <%= @user.last_name %>,<br></sub-header>
   <br>
-  <div class="w3-center">
-    <%= link_to 'Form',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: current_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank  %>
-    <br><br>
-    <a class="btn bar-btn" onclick="return showChangeDiv()">Change Schedule</a>  <!-- onclick="document.getElementById('login modal').style.display='none'" -->
+  <div class="container-fluid text-center">
+    <a class="btn btn-link-active" onclick="return showChangeDiv()">Change Schedule</a> 
+    <%= link_to 'Take Survey',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: current_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank, class: 'btn btn-link-active'  %>
+    <br>
   </div>
   <br>
   <sub-header>Hours: </sub-header>
@@ -41,5 +41,6 @@
     <br>
     <% end %>
   </text>
+  
 
 </div>

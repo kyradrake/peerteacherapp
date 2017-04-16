@@ -67,22 +67,6 @@
       </p>
     <% end %> 
   </div>
-  
-    
-    
-    <!--
-    <form>
-        <text>Date: </text>
-        <input type="text" id="calendar">
-        <text>Time: </text>
-        <select type="text" id="time">
-             @office_hours.where(netID: current_user.email, dow: document.getElementById("calendar").datepicker("dayNames")).find_each do |time| %>
-                <option value="a">< time.dow %></option>
-             end %>
-        </select>
-    </form>
-    -->
-    
 </div>
 
 <div id="schedule form" style="display: none; margin-left:5%; margin-right:5%">
@@ -110,7 +94,7 @@
       <br>
       <small-tab></small-tab>
       <text>End Hour: </text>
-      <%= f.select(:eHour, ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'], :selected => '10') %>
+      <%= f.select(:eHour, ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'], :selected => '10') %>
       <tab></tab>
       <text>End Minute: </text>
       <%= f.select(:eMin, ['0', '15', '30', '45'], {}, {}) %>

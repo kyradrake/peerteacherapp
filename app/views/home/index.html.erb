@@ -62,12 +62,10 @@
       </div>
     
       <div class="container-fluid text-center">
-          <p id="tochange" style ="color:white;">Displaying Available Peer Teachers</p> <p>   <a id="all button" onclick="return showAllDiv()">Show All</a> </p>
-      <%#= render 'display_link' %>
-    
+        <br>
+        <a id="display all button" class="basic-btn" style="display:none" onclick="return showAllDiv()">Displaying All Peer Teachers, Click to Display All</a>
       </div>
-    
-    
+
       <!-- Available View -->
       <div id="available view">
         <%= render 'available_view' %>
@@ -80,13 +78,15 @@
 
       <!-- Schedule Changes View -->
       <div id="schedule changes view" style="display: none">
-        <sub-header>Schedule Changes View</sub-header>
+        <%= render 'changes_view' %>
       </div>
       
       <!-- Selective Class View -->
       <div id="classnum view" style="display: none">
         <%= render 'button_click' %>
       </div>
+      
+      <text><%= session[:dest] %></text>
         
     </body>
 </html>

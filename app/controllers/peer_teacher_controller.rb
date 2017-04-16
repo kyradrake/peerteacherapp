@@ -153,7 +153,7 @@ class PeerTeacherController < ApplicationController
       
       copyhours.clear
     
-      if(name != nil)
+      if(name != '')
         PeerTeacher.create(:email => email, :name => name, :courselist => courses, :timelist => timeList, :image => imageURL)
         nameArray = name.split( ' ' )   #split the name by space to enter into User model 
         
@@ -170,12 +170,14 @@ class PeerTeacherController < ApplicationController
     @time = Time.new
     centralHour = @time.hour - 5
     correctedDay = @time.wday
+    correctedDate = @time.day
     if(centralHour < 0)
       centralHour += 24
       correctedDay -= 1
+      correctedDate -= 1
     end
     
-    today = (@time.month.to_s + "/" + @time.day.to_s + "/" + @time.year.to_s)
+    today = (@time.month.to_s + "/" + correctedDate.to_s + "/" + @time.year.to_s)
     
     if(session[:available_pts])   #.size > 0s
       session[:available_pts].clear
@@ -229,6 +231,7 @@ class PeerTeacherController < ApplicationController
           end
         end
         if(oh.dow == "F")
+          session[:dest] = "Friday"
           if(correctedDay != 5)
             next
           end
@@ -240,14 +243,6 @@ class PeerTeacherController < ApplicationController
         end
         
         if (oh.sHour > centralHour || oh.eHour < centralHour)
-          if(oh.eHour < centralHour)
-            orig = @office_hours.find_by(timeID: oh.timeID)
-            if(orig)
-              orig.update(change: "No Change")
-              session[oh.email] = 0
-              oh.destroy
-            end
-          end
           next
         end
         
@@ -259,6 +254,11 @@ class PeerTeacherController < ApplicationController
 
         if(oh.eHour == centralHour)
           if(oh.eMin < @time.min)
+            orig = @office_hours.find_by(timeID: oh.timeID)
+            if(orig)
+              orig.update(change: "No Change")
+            end
+            oh.destroy
             next
           end
         end
@@ -300,7 +300,17 @@ class PeerTeacherController < ApplicationController
       end
       
       if (oh.sHour > centralHour || oh.eHour < centralHour)
-        if(oh.eHour < centralHour)
+        next
+      end
+      
+      if(oh.sHour == centralHour)
+        if(oh.sMin > @time.min)
+          next
+        end
+      end
+      
+      if(oh.eHour == centralHour)
+        if(oh.eMin < @time.min)
           u = Update.find_by(timeID: oh.timeID)
           if(u)
             if(oh.change == "Delete" && u.date == today)
@@ -313,18 +323,6 @@ class PeerTeacherController < ApplicationController
               u.destroy
             end
           end
-        end
-        next
-      end
-      
-      if(oh.sHour == centralHour)
-        if(oh.sMin > @time.min)
-          next
-        end
-      end
-      
-      if(oh.eHour == centralHour)
-        if(oh.eMin < @time.min)
           next
         end
       end

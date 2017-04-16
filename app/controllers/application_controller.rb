@@ -8,9 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :sign_user_off
   
   private
-   def require_login   #login will go here because of before_action 
-    unless user_signed_in? 
-      flash[:error] = "Invalid email or password"
+   def require_login   #login will go here because of before_action
+    if !user_signed_in?          #if the user IS NOT signed in 
       redirect_to root_path
     end
   end

@@ -6,7 +6,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '3b4005c41c90d99001cb32494b68c9fe444b1e7c5027cd7042226951ff20f0f506005f502deecf3ab9cebaa2d2fd869d2e6536c2a7e1242a90078b99021cc4f6'
+  config.secret_key = 'a25137fd6c5c806f14d6967330a27832e8017cb5e9c0039e00fcfd70a436bad840bee9f68f8b2abfd157c7ab7b13480ce69cbf95fda3f70a555b3bbd0db47a44'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -271,4 +271,7 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+  
+  #Joel, I added this line to precompile our assets before pushing to Heroku because well, Heroku is shit! I think it's not a good idea to have this here though. Do you know if we have any other alternatives to do this?
+  
 end

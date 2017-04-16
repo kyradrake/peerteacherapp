@@ -22,6 +22,12 @@ text {
 	color: #BFBFBF;
 }
 
+small-text {
+	font-size:14px;
+	font-family: 'Open Sans';
+	color: #BFBFBF;
+}
+
 label {
 	font-size:18px;
 	font-family: 'Open Sans';
@@ -34,6 +40,24 @@ tab {
 
 small-tab {
   margin-left:2em
+}
+
+.basic-btn {
+  font-size:14px;
+  font-family: 'Open Sans';
+  font-weight: normal;
+  color: #BFBFBF;
+  text-decoration: none;
+}
+
+.basic-btn:hover {
+  font-size:14px;
+  font-family: 'Open Sans';
+  font-weight: normal;
+  color: #BFBFBF;
+  background-color: #262626;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .btn-link {

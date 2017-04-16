@@ -6,6 +6,6 @@ ActiveAdmin.register_page "Dashboard" do
   end # content
   
   action_item only: :index do
-    link_to 'Populate Database', home_populate_db_path
+    link_to 'Populate Database', home_populate_db_path, :confirm => "Sure" 
   end
 end

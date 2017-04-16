@@ -1,4 +1,4 @@
-<!---A button is click, which will have an id    this file will be rendered view that idea, and only display the users that match the class, use all view as template  --->
+<!--- A button is clicked, which will have an id this file will be rendered view that idea, and only display the users that match the class, use all view as template  --->
 
 
 
@@ -6,7 +6,7 @@
 <div id="container-fluid2">
   <div class="row row-flex row-flex-wrap">
     <% @peer_teachers.each do |pt| %>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 selective" id =  "<%= pt.courselist.tr(',','') %>"   >
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 selective" id = "<%= pt.courselist.tr(',','') %>"   >
       <div class="panel panel-primary" >
         <div class="panel-body" >
           <div class="col-sm-3">
@@ -14,6 +14,7 @@
 			    </div>
 			    <div class="col-sm-9">
             <h3><%= pt.name %></h3>
+            <h4><%= pt.email %></h4>
             <h4>Courses: </h4>
     				<p>  CSCE <%= pt.courselist %> </p>
             <h4>Office Hours:</h4>  
