@@ -1,0 +1,11 @@
+MAILGUN_API_KEY: 'key-e2f88fd75e1de008e3a8a707665ac1d8'
+domain: 'https://api.mailgun.net/v3/app85cae7084bcf43aca41019d9595fd9d7.mailgun.org'
+send_domain: 'app85cae7084bcf43aca41019d9595fd9d7.mailgun.org'
+MAILGUN_SMTP_LOGIN: 'postmaster@app85cae7084bcf43aca41019d9595fd9d7.mailgun.org'
+MAILGUN_SMTP_PASSWORD: 'be6750abef7113bd451d9826f3fc5767'
+MAILGUN_SMTP_SERVER: 'https://api.mailgun.net/v3/app85cae7084bcf43aca41019d9595fd9d7.mailgun.org'
+MAILGUN_SMTP_PORT: '587'
+
+#password: 'Default Password'
+#gmail_username: 'username@gmail.com'
+#gmail_password: 'gmail password'

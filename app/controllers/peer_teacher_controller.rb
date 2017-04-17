@@ -209,7 +209,7 @@ class PeerTeacherController < ApplicationController
     @updates = Update.all
 
     @updates.each do |oh|
-      if(oh.action == "Add" && oh.date == today)
+      if(oh.action == "Add" && oh.date == today && oh.approved = 1)
         if(oh.dow == "M")
           if(correctedDay != 1)
             next
@@ -264,6 +264,8 @@ class PeerTeacherController < ApplicationController
         end
         
         session[:available_pts].push(oh.email)
+      elsif(oh.approved == 0)
+        oh.destroy
       end
     end
     
@@ -329,12 +331,14 @@ class PeerTeacherController < ApplicationController
       
       u = Update.find_by(timeID: oh.timeID)
       
-      if(u)
+      if(u && u.approved == 1)
         if(oh.change == "Delete" && u.date == today)
           session[oh.email] = 1
         elsif(oh.change == u.date && oh.change == today)
           session[oh.email] = 1
         end
+      elsif(u && u.approved == 0)
+        u.destroy
       end
       
       session[:available_pts].push(oh.email)

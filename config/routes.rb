@@ -2,10 +2,15 @@ Rails.application.routes.draw do
   resources :peer_teacher_logins
   resources :administrators
   ActiveAdmin.routes(self)
-  devise_for :users, controllers: {sessions: "sessions", sign_in: 'login', sign_out: 'logout'}
+  devise_for :users, controllers: {
+      :sessions => 'users/sessions',
+      :passwords => 'users/passwords'
+  }
   
   devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy' 
+    get '/users/sign_out' => 'users/sessions#destroy'
+    get '/users/sign_in'  => 'users/sessions#create'
+    get '/users/password/edit' => 'users/passwords#edit'
   end
   
   get 'login_hub/index'                 #the index is for the regular user 

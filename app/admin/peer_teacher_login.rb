@@ -16,7 +16,9 @@ ActiveAdmin.register PeerTeacherLogin, :as => "Peer Teachers" do
   index do
     selectable_column
     id_column 
-    column :image
+    column "Image" do |product|
+      image_tag product.image
+    end
     column :first_name
     column :last_name
     actions 

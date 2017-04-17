@@ -12,7 +12,7 @@ class OfficeHoursController < ApplicationController
           @no_deletes = false
           time.update(change: "Delete")
           canceledDate = params[:office_hour][:cancelMonth] + "/" + params[:office_hour][:cancelDay] + "/" + params[:office_hour][:cancelYear]
-          Update.create(:timeID => time.timeID, :email => time.email, :dow => time.dow, :sHour => time.sHour, :sMin => time.sMin, :eHour => time.eHour, :eMin => time.eMin, :date => canceledDate, :action => "Delete", :msg => params[:office_hour][:reason], :approved => 0)
+          Update.create(:timeID => time.timeID, :email => time.email, :dow => time.dow, :sHour => time.sHour, :sMin => time.sMin, :eHour => time.eHour, :eMin => time.eMin, :date => canceledDate, :action => "Delete", :msg => params[:office_hour][:reason], :approved => 1)
           if(params[:office_hour][:reschedule] == "1")
             month = params[:office_hour][:rescheduleMonth].to_i
             day = params[:office_hour][:rescheduleDay].to_i
@@ -34,7 +34,7 @@ class OfficeHoursController < ApplicationController
             end
             rescheduleDate = params[:office_hour][:rescheduleMonth] + "/" + params[:office_hour][:rescheduleDay] + "/" + params[:office_hour][:rescheduleYear]
             #time.update(change: rescheduleDate)
-            Update.create(:timeID => time.timeID, :email => time.email, :dow => weekDay, :sHour => params[:office_hour][:sHour], :sMin => params[:office_hour][:sMin], :eHour => params[:office_hour][:eHour], :eMin => params[:office_hour][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour][:reason], :approved => 0)
+            Update.create(:timeID => time.timeID, :email => time.email, :dow => weekDay, :sHour => params[:office_hour][:sHour], :sMin => params[:office_hour][:sMin], :eHour => params[:office_hour][:eHour], :eMin => params[:office_hour][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour][:reason], :approved => 1)
           end
         end
       end
@@ -58,7 +58,9 @@ class OfficeHoursController < ApplicationController
             weekDay = "F"
           end
           rescheduleDate = params[:office_hour][:rescheduleMonth] + "/" + params[:office_hour][:rescheduleDay] + "/" + params[:office_hour][:rescheduleYear]
-          Update.create(:timeID => 0, :email => params[:office_hour][:userEmail], :dow => weekDay, :sHour => params[:office_hour][:sHour], :sMin => params[:office_hour][:sMin], :eHour => params[:office_hour][:eHour], :eMin => params[:office_hour][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour][:reason], :approved => 0)
+          randID = Random.new
+          randID.rand(1000000)
+          Update.create(:timeID => randID, :email => params[:office_hour][:userEmail], :dow => weekDay, :sHour => params[:office_hour][:sHour], :sMin => params[:office_hour][:sMin], :eHour => params[:office_hour][:eHour], :eMin => params[:office_hour][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour][:reason], :approved => 1)
       end
     end
     
@@ -82,7 +84,9 @@ class OfficeHoursController < ApplicationController
           weekDay = "F"
         end
         rescheduleDate = params[:office_hour_add][:rescheduleMonth] + "/" + params[:office_hour_add][:rescheduleDay] + "/" + params[:office_hour_add][:rescheduleYear]
-        Update.create(:timeID => 0, :email => params[:office_hour_add][:userEmail], :dow => weekDay, :sHour => params[:office_hour_add][:sHour], :sMin => params[:office_hour_add][:sMin], :eHour => params[:office_hour_add][:eHour], :eMin => params[:office_hour_add][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour_add][:reason], :approved => 0)
+        randID = Random.new
+        randID.rand(1000000)
+        Update.create(:timeID => randID, :email => params[:office_hour_add][:userEmail], :dow => weekDay, :sHour => params[:office_hour_add][:sHour], :sMin => params[:office_hour_add][:sMin], :eHour => params[:office_hour_add][:eHour], :eMin => params[:office_hour_add][:eMin], :date => rescheduleDate, :action => "Add", :msg => params[:office_hour_add][:reason], :approved => 1)
     end
     redirect_to login_hub_index_path
   end

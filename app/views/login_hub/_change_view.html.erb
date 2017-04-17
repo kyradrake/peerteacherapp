@@ -100,9 +100,9 @@
       <%= f.select(:eMin, ['0', '15', '30', '45'], {}, {}) %>
       <br>
       <br>
-      <text>I need to cancel my office hours because...</text>
+      <text>I need to schedule office hours because...</text>
       <br>
-      <%= f.text_area :reason, :rows => 3, :placeholder => "I am cancelling my office hours because I have an interview at the same time.", :required => true %>
+      <%= f.text_area :reason, :rows => 3, :placeholder => "I am scheduling office hours because I had to cancel office hours last week.", :required => true %>
       <br>
       <p>
         <%= f.submit "Submit Change", :class => 'btn bar-btn' %>
