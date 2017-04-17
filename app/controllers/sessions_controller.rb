@@ -20,12 +20,11 @@ class SessionsController < Devise::SessionsController
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
-    #self.after_sign_in_path_for( resource )
-    
+    byebug
     if authenticate_admin?
-      redirect_to admin_root_path 
+      self.after_sign_in_path_for( resource, admin_root_path )
     elsif user_signed_in? 
-      redirect_to login_hub_index_path
+      self.after_sign_in_path_for( resource, login_hub_index_path )
     end
   end
 
@@ -35,6 +34,15 @@ class SessionsController < Devise::SessionsController
     set_flash_message! :notice, :signed_out if signed_out
     yield if block_given?
     respond_to_on_destroy
+  end
+  
+  def after_sign_in_path_for(resource, path )
+    byebug
+    if resource.sign_in_count == 1   #signed in for the first time  
+      redirect_to edit_user_password_path( 'prev_path', path )
+    else
+      redirect_to path 
+    end
   end
 
   protected
@@ -56,13 +64,6 @@ class SessionsController < Devise::SessionsController
 
   def translation_scope
     'devise.sessions'
-  end
-  
-  def after_sign_in_path_for(resource)
-    byebug
-    if resource.sign_in_count == 1   #signed in for the first time  
-      edit_user_password_path
-    end
   end
 
   private

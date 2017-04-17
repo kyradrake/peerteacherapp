@@ -63,6 +63,8 @@ group :development do
   
   gem 'actionmailer'
   gem 'quiet_assets'
+  gem "awesome_print", require:"ap"
+  gem "better_errors"
 end
 
 group :test do
