@@ -7,10 +7,10 @@ class UpdatesController < ApplicationController
     end
     
     def edit
-        @updates = Update.all
-        disapproved = @updates.find_by (timeID : params[:id])
-        disapproved.update(approved: 0)
-        session[:iddd] = disaproved.approved
+        #@updates = Update.all
+        #disapproved = @updates.find_by (timeID : params[:id])
+        #disapproved.update(approved: 0)
+        #session[:iddd] = disaproved.approved
     end
     
 end
