@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
-  rolify
+  #rolify
   devise :database_authenticatable, :lockable,
          :recoverable, :trackable
-  belongs_to :meta, polymorphic: true 
+  
+  belongs_to :meta, polymorphic: true
+  
+  
 end

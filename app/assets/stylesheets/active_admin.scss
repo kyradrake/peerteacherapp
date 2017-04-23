@@ -78,6 +78,9 @@ html, body {
   @extend .navbar;
   @extend .navbar-inverse;
   border-radius: 0px;
+  border: none;
+  background-color: #262626;
+  margin: none;
 
   .mobile {
     display: none;
@@ -106,6 +109,8 @@ html, body {
 
     .header-item.tabs {
       margin: 7.5px 0;
+      padding-bottom: 15px;
+      padding-top: 15px;
     }
 
     #utility_nav {
@@ -121,7 +126,7 @@ html, body {
 
   #site_title {
     @extend .navbar-brand;
-    margin-top:    0;
+    margin-top: 0;
     margin-bottom: 0;
     display: none;
   }
@@ -131,6 +136,11 @@ html, body {
     @extend .navbar-nav;
 
     li.current { @extend .active; }
+    
+    li#current_user {
+      padding-bottom: 15px;
+      padding-top: 15px;
+    }
   }
 
   .header-item.tab {

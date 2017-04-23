@@ -1,4 +1,5 @@
-<div style="padding: 30px">
+<div class="row" style="margin: 20px;">
+<div class="col-md-offset-2 col-md-8">
   <sub-header>Hello <%= @user.first_name %> <%= @user.last_name %>,<br></sub-header>
   <br>
   <div class="container-fluid text-center">
@@ -30,6 +31,12 @@
       <% timeDetails = beautify_time(time) %>
       <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
       <tab></tab><tab></tab><text><%= time.msg %></text>
+      <% if (time.approved == 1) %>
+        <tab></tab><tab></tab><text>Approved</text>
+      <% else %>
+        <tab></tab><tab></tab><text>Disapproved</text>
+      <% end %>
+      <tab></tab><tab></tab><text><%= link_to 'Delete', update_path(time), :method => :delete, :confirm => 'Are you sure?' %></text>
       <br>
     <% end %>      
           
@@ -41,6 +48,5 @@
     <br>
     <% end %>
   </text>
-  
-
+</div>
 </div>

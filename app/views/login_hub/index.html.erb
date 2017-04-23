@@ -30,9 +30,7 @@
     <title>Peer Teacher Web Portal</title>
   </head>
   <body>
-    <div id="logout">
-      <%= link_to "Logout", destroy_user_session_path, :class => "button", :style => "float:right" %>
-    </div>
+    <%= render 'navigation_bar' %>
     
     <!-- default view for peer teacher page -->
     <div id="pt view">

@@ -24,6 +24,7 @@ function showAvailableDiv() {
   document.getElementById("display all button").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
   document.getElementById("classnum view").style.display = "none";
+  document.getElementById("byname view").style.display = "none";
   
   // select available button, other buttons default color
   document.getElementById("available button").classList.remove("btn-link");
@@ -45,6 +46,7 @@ function showAllDiv() {
   document.getElementById("display all button").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
   document.getElementById("classnum view").style.display = "none";
+    document.getElementById("byname view").style.display = "none";
   
   // select all button, other buttons default color
   document.getElementById("available button").classList.remove("btn-link-active");
@@ -66,6 +68,7 @@ function showScheduleChangesDiv() {
   document.getElementById("all view").style.display = "none";
   document.getElementById("display all button").style.display = "none";
   document.getElementById("classnum view").style.display = "none";
+  document.getElementById("byname view").style.display = "none";
   
   // select schedule changes button, other buttons default color
   document.getElementById("available button").classList.remove("btn-link-active");
@@ -80,6 +83,50 @@ function showScheduleChangesDiv() {
   return false;
 }
 
+function showByName() {
+   //http://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
+  var inputString = document.getElementById("name search bar dhananjay").value;
+  console.log(inputString);
+  document.getElementById("schedule changes view").style.display = "none";
+  document.getElementById("all view").style.display = "none";
+   document.getElementById("classnum view").style.display = "none";  
+    document.getElementById("available view").style.display = "none";
+   document.getElementById("byname view").style.display = "block";
+    document.getElementById("display all button").style.display = "none";
+ // var items = document.getElementsByTagName('div');
+  var list = document.getElementsByClassName('col-lg-4 col-md-6 col-sm-12 col-xs-12 name');
+
+  // go through all list
+  for(var i = 0;i < list.length; i++) {
+    // get each pt
+   // var results = list[i].id;
+    //console.log(list[i].id);
+   // console.log(inputString.toString()) ;
+      //console.log(results[x]);
+      
+      // check if any of the ids match classvar
+      
+      var lowerCaseID = list[i].id.toLowerCase();
+      inputString = inputString.toLowerCase();
+      
+      //if(list[i].id.search(inputString) == -1){
+      if(lowerCaseID.search(inputString) == -1){
+        console.log("Didnt Match");
+        list[i].style.display = 'none';
+        // console.log(list[i].id);
+      } else {
+      //  list[i].style.display = 'block';
+        console.log("MATCH");
+       
+      }
+    
+
+    console.log("END USER");
+  }
+  
+  return false;
+}
+
 
 function showclass(classvar) {
 
@@ -89,7 +136,7 @@ function showclass(classvar) {
   document.getElementById("all view").style.display = "none";
   document.getElementById("available view").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
-  
+    document.getElementById("byname view").style.display = "none";
   document.getElementById("classnum view").style.display = "block";
   
   // select all button, other buttons default color

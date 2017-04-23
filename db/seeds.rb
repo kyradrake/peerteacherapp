@@ -36,6 +36,16 @@ Administrator.create(
         }
     )
 
+Administrator.create(
+        :first_name     => "John",
+        :last_name      => "Pound",
+        :user_attributes => {
+            :email      => "Joelescobar01@tamu.edu",
+            :password   => "testing",
+            :password_confirmation => "testing",
+        }
+    )
+
 PeerTeacherLogin.create(
         :first_name     => "Bob",
         :last_name      => "Dylan",

@@ -21,9 +21,10 @@ class Users::SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     yield resource if block_given?
     #Correct controller 
-   # byebug
+    #byebug
     if authenticate_admin?
-      #self.after_sign_in_path_for( admin_root_path )
+      #redirect_to edit_user_password_path, alert: "You must change your password before login "
+      #self.after_sign_in_path_for
       redirect_to admin_root_path
     elsif user_signed_in? 
     #  self.after_sign_in_path_for( resource, login_hub_index_path )
@@ -39,14 +40,15 @@ class Users::SessionsController < Devise::SessionsController
     respond_to_on_destroy
   end
   
-#  def after_sign_in_path_for( path )
-#    byebug
-#    if resource.sign_in_count == 1   #signed in for the first time  
-#      redirect_to edit_user_password_path
-#    else
-#      redirect_to path 
-#    end
-#  end
+  def after_sign_in_path_for
+    byebug
+    resource.sign_in_count = 1; 
+    if resource.sign_in_count == 1   #signed in for the first time  
+      redirect_to edit_user_password_path :action => ""
+    else
+      redirect_to path 
+    end
+  end
 
   protected
 

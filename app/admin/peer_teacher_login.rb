@@ -1,4 +1,12 @@
 ActiveAdmin.register PeerTeacherLogin, :as => "Peer Teachers" do
+  #controller do 
+  #  def index 
+  #    params[:order] = "name_asc"
+  #    super
+  #  end
+  #end
+  
+  config.sort_order = "name_asc"
   permit_params :first_name, :last_name #what can be modified
   
   filter :first_name
@@ -20,7 +28,7 @@ ActiveAdmin.register PeerTeacherLogin, :as => "Peer Teachers" do
       image_tag product.image
     end
     column :first_name
-    column :last_name
+    column :last_name, :sortable => ''
     actions 
   end
 

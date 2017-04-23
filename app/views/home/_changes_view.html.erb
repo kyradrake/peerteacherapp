@@ -6,11 +6,13 @@
 <% end %>
 <% count = 0 %>
 <% sortedUpdates.find_each do |time| %>
-  <% count += 1 %>
-  <tab></tab><text><%= count %>. <%= (@peer_teachers.find_by email: time.email).name %>:</text>
-  <tab></tab><text><%= time.action %></text>
-  <% timeDetails = beautify_time(time) %>
-  <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
-  <tab></tab><tab></tab><text><%= time.msg %></text>
-  <br>
+  <% if time.approved == 1 %>
+    <% count += 1 %>
+    <tab></tab><text><%= count %>. <%= (@peer_teachers.find_by email: time.email).name %>:</text>
+    <tab></tab><text><%= time.action %></text>
+    <% timeDetails = beautify_time(time) %>
+    <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+    <tab></tab><tab></tab><text><%= time.msg %></text>
+    <br>
+    <% end %>
 <% end %>

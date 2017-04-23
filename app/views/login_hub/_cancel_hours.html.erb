@@ -1,0 +1,63 @@
+<div class="row" style="margin: 20px;">
+<div class="col-md-offset-2 col-md-8">
+  <%= form_for :office_hour, url: office_hour_path(:office_hour), method: :put do |f| %>
+    <%= f.hidden_field :userEmail, :value=>current_user.email %>
+    <text>Date: </text>
+    <br>
+    <small-tab></small-tab>
+    <text>Month: </text>
+    <%= f.select(:cancelMonth, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], :selected => @time.month.to_s) %>
+    <tab></tab>
+    <text>Day: </text>
+    <%= f.select(:cancelDay, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '31'], :selected => @time.day.to_s) %>
+    <tab></tab>
+    <text>Year: </text>
+    <%= f.select(:cancelYear, ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039', '2040'], :selected => @time.year.to_s) %>
+    <br>
+    <% @office_hours.where(email: current_user.email).find_each do |time| %>
+      <small-tab></small-tab><%= f.radio_button :deleted, time.timeID.to_s%>
+      <% timeDetails = beautify_time(time) %>
+      <text><%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+      <br>
+    <% end %>
+    <br>
+    <text>I need to cancel my office hours because...</text>
+    <br>
+    <%= f.text_area :reason, :rows => 3, :placeholder => "I am cancelling my office hours because I have an interview at the same time.", :required => true %>
+    <br>
+    <br>
+    <%= f.check_box :reschedule %>
+    <text>Reschedule?</text>
+    <br>
+    <text>Date: </text>
+    <br>
+    <small-tab></small-tab>
+    <text>Month: </text>
+    <%= f.select(:rescheduleMonth, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], :selected => @time.month.to_s) %>
+    <tab></tab>
+    <text>Day: </text>
+    <%= f.select(:rescheduleDay, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '31'], :selected => @time.day.to_s) %>
+    <tab></tab>
+    <text>Year: </text>
+    <%= f.select(:rescheduleYear, ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039', '2040'], :selected => @time.year.to_s) %>
+    <br>
+    <small-tab></small-tab>
+    <text>Start Hour: </text>
+    <%= f.select(:sHour, ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']) %>
+    <tab></tab>
+    <text>Start Minute: </text>
+    <%= f.select(:sMin, ['00', '15', '30', '45'], {}, {}) %>
+    <br>
+    <small-tab></small-tab>
+    <text>End Hour: </text>
+    <%= f.select(:eHour, ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'], :selected => '10') %>
+    <tab></tab>
+    <text>End Minute: </text>
+    <%= f.select(:eMin, ['00', '15', '30', '45'], {}, {}) %>
+    <br>
+    <p>
+      <%= f.submit "Submit Change", :class => 'btn bar-btn' %>
+    </p>
+  <% end %>
+</div>
+</div>

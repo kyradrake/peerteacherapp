@@ -1,28 +1,28 @@
 ActiveAdmin.register Administrator do
-  permit_params :first_name, :last_name,
-                user_attributes: [:email, :password, :password_confirmation]
-  config.sort_order = "updated_at_desc"
-  
+  #controller do 
+  #  def index 
+  #    params[:order] = "_asc"
+  #    super
+  #  end
+  #end
+  config.sort_order = "name_asc"
+  permit_params :first_name, :last_name
+                #:user_attributes => {
+                #  :password 
+                #  :password_confirmation   
+                #  :meta_type 
+                #}
+
   form do |f|
     f.inputs "Admin" do
       f.input :first_name
       f.input :last_name
-      f.input :test
-      f.input :password
-      f.input :password_confirmation
+      f.has_many :user do |user|
+        user.input :email
+        user.input :password
+        user.input :password_confirmation
+      end
     end
     f.actions
   end
-      
-  filter :first_name
-  filter :last_name 
-
-  index do
-    selectable_column
-    id_column 
-    column :first_name
-    column :last_name
-    actions 
-  end
-
 end

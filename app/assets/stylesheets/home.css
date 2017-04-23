@@ -1,8 +1,10 @@
-html, body {
+html, body, li, p {
 	background-color: #262626;
 	font-family: 'Open Sans';
-	height: 100%;
-	width: 100%;
+	font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+
 }
 
 header {
@@ -43,17 +45,11 @@ small-tab {
 }
 
 .basic-btn {
-  font-size:14px;
-  font-family: 'Open Sans';
-  font-weight: normal;
   color: #BFBFBF;
   text-decoration: none;
 }
 
 .basic-btn:hover {
-  font-size:14px;
-  font-family: 'Open Sans';
-  font-weight: normal;
   color: #BFBFBF;
   background-color: #262626;
   text-decoration: none;
@@ -62,8 +58,6 @@ small-tab {
 
 .btn-link {
 	background-color: #262626;
-	font-size:16px;
-	font-family: 'Open Sans';
 	color:#BFBFBF;
 	padding: 2px 5px;
 	border-radius: 2px;
@@ -83,8 +77,6 @@ small-tab {
 
 .btn-link-active {
 	background-color: #595959;
-	font-size:16px;
-	font-family: 'Open Sans';
 	font-weight: normal;
 	color:#BFBFBF;
 	padding: 2px 5px;
@@ -156,7 +148,6 @@ container {
 }
 
 textarea {
-  width: 30%;
   background-color: #BFBFBF;
   font-family: 'Open Sans';
   font-size: 16px;
@@ -217,14 +208,17 @@ input[type=submit] {
 }
 
 /* navbar */
-.navbar {
-  color:#BFBFBF;
-	background-color: #262626;
+/* dropdown */
+.navbar-right {
+  float: right!important;
+  margin: 0px;
 }
 
-/* dropdown */
-.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+.navbar, .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border-radius: 0px;
   border: none;
+  color: #BFBFBF;
+  background-color: #262626;
 }
 
 .navbar-toggle, .navbar-toggle collapsed {
@@ -252,7 +246,7 @@ input[type=submit] {
 }
 
 .dropdown-menu.columns-3 {
-	min-width: 200px;
+	min-width: 300px;
 	color:#BFBFBF;
 	background-color: #262626;
 }
@@ -272,11 +266,11 @@ input[type=submit] {
   text-decoration: none;
 }
 
-
 .multi-column-dropdown {
 	list-style: none;
   margin: 0px;
-  padding: 0px;
+  padding: 15px;
+  position: relative;
 }
 
 .multi-column-dropdown li a {

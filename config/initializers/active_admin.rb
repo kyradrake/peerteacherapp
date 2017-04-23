@@ -290,17 +290,5 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
-  
-  module ActiveAdmin
-  module Views
-    class TableFor < Arbre::HTML::Table    
-      def order_for_sort_key(sort_key)
-        current_key, current_order = current_sort
-        return 'asc' unless current_key == sort_key
-        current_order == 'desc' ? 'asc' : 'desc'
-      end
-    end
-  end
-end
-  
+
 end

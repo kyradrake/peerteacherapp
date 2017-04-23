@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
+gem "activeadmin_polymorphic"
 gem 'rolify'
 
 gem 'whenever', :require => false
