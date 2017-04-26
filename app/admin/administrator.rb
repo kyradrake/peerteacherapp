@@ -1,28 +1,31 @@
 ActiveAdmin.register Administrator do
-  #controller do 
-  #  def index 
-  #    params[:order] = "_asc"
-  #    super
-  #  end
-  #end
-  config.sort_order = "name_asc"
-  permit_params :first_name, :last_name
-                #:user_attributes => {
-                #  :password 
-                #  :password_confirmation   
-                #  :meta_type 
-                #}
-
+  config.sort_order = 'name_asc'
+  controller do 
+    def create
+      @administrator = Administrator.new( permitted_params[ :administrator ])
+      if @administrator.save 
+        redirect_to admin_administrator_path( @administrator )
+      else
+        render :new 
+      end
+    end
+  end
+  permit_params :first_name, :last_name, 
+                user_attributes: [:id, :email, :password, :_destroy]
+                
   form do |f|
-    f.inputs "Admin" do
+    f.inputs do 
       f.input :first_name
       f.input :last_name
-      f.has_many :user do |user|
-        user.input :email
-        user.input :password
-        user.input :password_confirmation
+      f.input :notification, :as => :radio, :collection => [true, false], :label => "Notification?"
+    end
+    f.inputs do 
+      f.has_many :user, allow_destroy: true do |usr|
+        usr.input :email, required: true 
+        usr.input :password, required: true
       end
     end
     f.actions
   end
+
 end

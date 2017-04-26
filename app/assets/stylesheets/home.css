@@ -4,7 +4,6 @@ html, body, li, p {
 	font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
-
 }
 
 header {
@@ -243,6 +242,25 @@ input[type=submit] {
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #BFBFBF;
+}
+
+.navbar-default .btn-link {
+	background-color: #262626;
+	color:#BFBFBF;
+	padding: 2px 5px;
+	border-radius: 2px;
+	text-decoration: none;
+	
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.navbar-default .btn-link:hover {
+  background-color: #BFBFBF; 
+  color:#0D0D0D;
+  text-decoration: none;
+	border-collapse: separate;
 }
 
 .dropdown-menu.columns-3 {

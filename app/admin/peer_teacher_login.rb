@@ -1,26 +1,19 @@
-ActiveAdmin.register PeerTeacherLogin, :as => "Peer Teachers" do
-  #controller do 
-  #  def index 
-  #    params[:order] = "name_asc"
-  #    super
-  #  end
-  #end
-  
-  config.sort_order = "name_asc"
-  permit_params :first_name, :last_name #what can be modified
-  
-  filter :first_name
-  filter :last_name 
+ActiveAdmin.register PeerTeacherLogin do
+  config.sort_order = 'name_asc'
+  controller do 
+    def create
+      @peer_teacher_login = PeerTeacherLogin.new( permitted_params[ :peer_teacher_login ])
+      if @peer_teacher_login.save 
+        redirect_to admin_peer_teacher_login_path( @peer_teacher_login )
+      else
+        render :new 
+      end
+    end
+  end
+  permit_params :first_name, :last_name, :image, 
+                user_attributes: [:id, :email, :password, :_destroy]
 
-  #index :as => :grid do |teacher|
-  #    div do
-  #      a :href => admin_peer_teacher_path(teacher) do
-  #        image_tag( teacher.image )
-  #        end
-  #    end
-  #    a truncate(teacher.first_name + teacher.last_name), :href => admin_peer_teacher_path(teacher)
-  #end
-  
+
   index do
     selectable_column
     id_column 
@@ -30,6 +23,21 @@ ActiveAdmin.register PeerTeacherLogin, :as => "Peer Teachers" do
     column :first_name
     column :last_name, :sortable => ''
     actions 
+  end
+  
+  form do |f|
+    f.inputs do 
+      f.input :first_name
+      f.input :last_name
+      f.input :image
+    end
+    f.inputs do 
+      f.has_many :user, allow_destroy: true do |usr|
+        usr.input :email
+        usr.input :password
+      end
+    end
+    f.actions
   end
 
 end

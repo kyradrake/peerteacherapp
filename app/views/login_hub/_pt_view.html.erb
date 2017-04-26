@@ -4,7 +4,7 @@
   <br>
   <div class="container-fluid text-center">
     <a class="btn btn-link-active" onclick="return showChangeDiv()">Change Schedule</a> 
-    <%= link_to 'Take Survey',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: current_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank, class: 'btn btn-link-active'  %>
+    <%= link_to 'Take Survey',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: @parent_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank, class: 'btn btn-link-active'  %>
     <br>
   </div>
   <br>
@@ -12,7 +12,7 @@
   <br>
   <text id="hours">
     <%# Current User will have email, first_name, last_name email only %>
-    <% @office_hours.where(email: current_user.email).find_each do |time| %>
+    <% @office_hours.where(email: @parent_user.email).find_each do |time| %>
       <% timeDetails = beautify_time(time) %>
       <tab></tab><%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
       <br>
@@ -20,30 +20,60 @@
   </text>
   
   <sub-header>Changes: <br></sub-header>
-    <% search = @updates.find_by_email(current_user.email)
+    <% search = @updates.find_by_email(@parent_user.email)
       if search.blank? %>
         <tab></tab>
         <text>No upcoming schedule changes</text>
         <br>
     <% end %>
-    <% @updates.where(email: current_user.email).find_each do |time| %>
-      <tab></tab><text><%= time.action %></text>
-      <% timeDetails = beautify_time(time) %>
-      <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
-      <tab></tab><tab></tab><text><%= time.msg %></text>
-      <% if (time.approved == 1) %>
-        <tab></tab><tab></tab><text>Approved</text>
-      <% else %>
-        <tab></tab><tab></tab><text>Disapproved</text>
-      <% end %>
-      <tab></tab><tab></tab><text><%= link_to 'Delete', update_path(time), :method => :delete, :confirm => 'Are you sure?' %></text>
-      <br>
-    <% end %>      
-          
-  
+    
+    <div class="table-responsive">
+    <table class="table table-hover"> <!--delete "table-hover" if hover highlight is annoying-->
+      <thead class="thead-default">
+        <tr>
+          <th> </th>
+          <th>Hours</th>
+          <th>Approved?</th>
+          <th>Reason</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @updates.where(email: @parent_user.email).find_each do |time| %>
+        <tr>
+          <td>
+            <% if (time.action == 'Delete') %>
+              -
+            <% else %>
+              +
+            <% end %>
+          </td>
+          <td>
+            <% timeDetails = beautify_time(time) %>
+            <%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+          </td>
+          <td>
+            <% if (time.approved == 1) %>
+              Yes
+            <% else %>
+              No
+            <% end %>
+          </td>
+          <td>
+            <%= time.msg %>
+          </td>
+          <td>
+            <%= link_to 'Delete', update_path(time), :class => 'btn btn-link-active', :method => :delete, :confirm => 'Are you sure?' %></text>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+
   <sub-header>Courses: <br></sub-header>
   <text id="courses">
-    <% @peer_teachers.where(email: current_user.email).find_each do |pt| %>
+    <% @peer_teachers.where(email: @parent_user.email).find_each do |pt| %>
     <tab></tab>CSCE <%= pt.courselist %>
     <br>
     <% end %>

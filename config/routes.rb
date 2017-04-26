@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
       :sessions => 'users/sessions',
-      :passwords => 'users/passwords'
-      
+      :passwords => 'users/passwords',
+      :registration => 'users/registrations'
   }
   
   devise_scope :user do

@@ -5,5 +5,4 @@ class User < ActiveRecord::Base
   
   belongs_to :meta, polymorphic: true
   
-  
 end

@@ -29,6 +29,7 @@
 Administrator.create( 
         :first_name     => "Joel",
         :last_name      => "Escobar",
+        :notification   => true, 
         :user_attributes => {
             :email          => "Joelescobar@tamu.edu",
             :password       => "admin",
@@ -36,25 +37,15 @@ Administrator.create(
         }
     )
 
-Administrator.create(
-        :first_name     => "John",
-        :last_name      => "Pound",
-        :user_attributes => {
-            :email      => "Joelescobar01@tamu.edu",
-            :password   => "testing",
-            :password_confirmation => "testing",
-        }
-    )
-
 PeerTeacherLogin.create(
-        :first_name     => "Bob",
-        :last_name      => "Dylan",
-        :user_attributes => {
-            :email          => "Bobdylan@tamu.edu",
-            :password       => "user",
-            :password_confirmation => "user", 
-        }
-    )
+    :first_name     => "Test",
+    :last_name      => "Testing",
+    :user_attributes => {
+        :email      => "testing@tamu.edu",
+        :password   => "peerteacher",
+        :password_confirmation => "peerteacher",
+    }
+)
 
 #peerTeachers.each do |pt|
 #  PeerTeacher.create!(pt)

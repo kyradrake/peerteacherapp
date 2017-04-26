@@ -263,6 +263,30 @@ ul.scopes {
   }
 }
 
+/* Dropdown */
+
+.dropdown_menu {
+  @extend .dropdown
+}
+
+.dropdown_menu_button {
+}
+
+.dropdown_menu_list {
+  //@include am-menu-list;
+  //@include am-menu-list-open;
+
+  li {
+    display: block;
+    margin: 0;
+  }
+
+  li a {
+    display: block;
+    font-size: 14px;
+  }
+}
+
 /* Tables */
 .index_as_table { @extend .table-responsive; }
 .index_table      { @extend .table; }

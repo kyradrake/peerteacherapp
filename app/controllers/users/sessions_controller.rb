@@ -15,13 +15,14 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   # Login In => ApplicationController(method=>require_login) -> Session_controller(method=>create)
   def create  
-    #byebug Correct Controller 
+    #byebug Correct Controller
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
     #Correct controller 
     #byebug
+    #redirect_to edit_user_password_path 
     if authenticate_admin?
       #redirect_to edit_user_password_path, alert: "You must change your password before login "
       #self.after_sign_in_path_for
@@ -31,6 +32,7 @@ class Users::SessionsController < Devise::SessionsController
       redirect_to login_hub_index_path
     end
   end
+end
 
   # DELETE /resource/sign_out
   def destroy
@@ -38,17 +40,6 @@ class Users::SessionsController < Devise::SessionsController
     set_flash_message! :notice, :signed_out if signed_out
     yield if block_given?
     respond_to_on_destroy
-  end
-  
-  def after_sign_in_path_for
-    byebug
-    resource.sign_in_count = 1; 
-    if resource.sign_in_count == 1   #signed in for the first time  
-      redirect_to edit_user_password_path :action => ""
-    else
-      redirect_to path 
-    end
-  end
 
   protected
 

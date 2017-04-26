@@ -3,8 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  before_action :require_login 
+  before_action :require_login
   helper_method :sign_user_off
+  
   
   private
    def require_login   #login will go here because of before_action
@@ -31,12 +32,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def store_current_location
-    store_location_for(:user, request.url)
-  end
-  
   def after_sign_out_path_for(resource)
     request.referrer || root_path
   end
+  
   
 end

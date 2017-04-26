@@ -46,8 +46,6 @@ class PeerTeacherController < ApplicationController
     #     end
     # end
     
-    
-    
   end
   
   def populate_db

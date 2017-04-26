@@ -14,6 +14,7 @@ class OfficeHoursController < ApplicationController
           canceledDate = params[:office_hour][:cancelMonth] + "/" + params[:office_hour][:cancelDay] + "/" + params[:office_hour][:cancelYear]
           Update.create(:timeID => time.timeID, :email => time.email, :dow => time.dow, :sHour => time.sHour, :sMin => time.sMin, :eHour => time.eHour, :eMin => time.eMin, :date => canceledDate, :action => "Delete", :msg => params[:office_hour][:reason], :approved => 1)
           ExampleMailer.api_email(params[:office_hour][:userEmail], true, time.timeID).deliver_later
+          
           if(params[:office_hour][:reschedule] == "1")
             month = params[:office_hour][:rescheduleMonth].to_i
             day = params[:office_hour][:rescheduleDay].to_i
