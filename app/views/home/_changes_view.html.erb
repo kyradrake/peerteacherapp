@@ -1,18 +1,18 @@
-<% sortedUpdates = @updates.order(:date) %>
-<% if sortedUpdates.blank? %>
-    <tab></tab>
-    <text>No upcoming schedule changes</text>
-    <br>
+<% sorted_updates = @updates.order(:date) %>
+<% if sorted_updates.blank? %>
+  <tab></tab>
+  <text>No upcoming schedule changes</text>
+  <br>
 <% end %>
 <% count = 0 %>
-<% sortedUpdates.find_each do |time| %>
+<% sorted_updates.find_each do |time| %>
   <% if time.approved == 1 %>
     <% count += 1 %>
     <tab></tab><text><%= count %>. <%= (@peer_teachers.find_by email: time.email).name %>:</text>
     <tab></tab><text><%= time.action %></text>
-    <% timeDetails = beautify_time(time) %>
-    <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+    <% time_details = beautify_time(time) %>
+    <small-tab></small-tab><text><%= time.dow %> <%= time.date %> @ <%= time_details[0] %>:<%= time_details[1] %><%= time_details[2] %> - <%= time_details[3] %>:<%= time_details[4] %><%= time_details[5] %></text>
     <tab></tab><tab></tab><text><%= time.msg %></text>
     <br>
-    <% end %>
+  <% end %>
 <% end %>

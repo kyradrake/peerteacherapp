@@ -2,6 +2,9 @@ class Users::PasswordsController < Devise::PasswordsController
   prepend_before_action :require_no_authentication
   # Render the #edit only if coming from a reset password email link
   append_before_action :assert_reset_token_passed, only: :edit
+  
+  #before_filter :configure_permitted_paramaters 
+  
 
   # GET /resource/password/new
   def new
@@ -49,6 +52,13 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   protected
+  
+    def configure_permitted_paramaters 
+      devise_parameter_sanitizer.for( :account_update ) do |u|
+        u.permit( :email, :password, :password_confirmation, :current_password )
+      end
+    end
+    
     def after_resetting_password_path_for(resource)
       Devise.sign_in_after_reset_password ? after_sign_in_path_for(resource) : new_session_path(resource_name)
     end

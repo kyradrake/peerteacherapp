@@ -91,15 +91,13 @@ function showByName() {
   console.log(inputString);
   document.getElementById("schedule changes view").style.display = "none";
   document.getElementById("all view").style.display = "none";
-  document.getElementById("classnum view").style.display = "none";  
+  document.getElementById("classnum view").style.display = "none";
   document.getElementById("available view").style.display = "none";
 
   document.getElementById("display all button").style.display = "none";
   
   
-  //button highliting 
-  
-   // select all button, other buttons default color
+  // select all button, other buttons default color
   document.getElementById("available button").classList.remove("btn-link-active");
   document.getElementById("available button").classList.add("btn-link");
   
@@ -108,7 +106,7 @@ function showByName() {
   
   document.getElementById("schedule changes button").classList.remove("btn-link-active");
   document.getElementById("schedule changes button").classList.add("btn-link");
-   document.getElementById("display all button").style.display = "block";
+  document.getElementById("display all button").style.display = "block";
   document.getElementById("display all button").textContent = "Currently displaying Search Results for  '" + inputString + "', click here to display all.";
   
   // var items = document.getElementsByTagName('div');
@@ -145,7 +143,7 @@ function showclass(classvar) {
   document.getElementById("all view").style.display = "none";
   document.getElementById("available view").style.display = "none";
   document.getElementById("schedule changes view").style.display = "none";
-    document.getElementById("byname view").style.display = "none";
+  document.getElementById("byname view").style.display = "none";
   document.getElementById("classnum view").style.display = "block";
   
   // select all button, other buttons default color

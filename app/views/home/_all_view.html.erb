@@ -14,8 +14,8 @@
     				<p>  CSCE <%= pt.courselist %> </p>
             <h4>Office Hours:</h4>  
   					  <% @office_hours.where(email: pt.email).find_each do |time| %>
-  					    <% timeDetails = beautify_time(time) %>
-  				      <%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
+  					    <% time_details = beautify_time(time) %>
+  				      <%= time.dow %> <%= time_details[0] %>:<%= time_details[1] %><%= time_details[2] %> - <%= time_details[3] %>:<%= time_details[4] %><%= time_details[5] %>
                 <br>
               <% end %>
           </div>

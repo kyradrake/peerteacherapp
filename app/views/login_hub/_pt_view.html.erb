@@ -4,7 +4,7 @@
   <br>
   <div class="container-fluid text-center">
     <a class="btn btn-link-active" onclick="return showChangeDiv()">Change Schedule</a> 
-    <%= link_to 'Take Survey',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: @parent_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank, class: 'btn btn-link-active'  %>
+    <%#= link_to 'Take Survey',  "https://docs.google.com/forms/d/e/1FAIpQLScZDnwb9zo8OWxLvHuPCtaVVFFPW36CRdrJtD1XIfJR1LMt-w/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.197140045=" + (@peer_teachers.find_by email: @parent_user.email).name + "&entry.11274062&entry.2071741446&entry.99313458", target: :_blank, class: 'btn btn-link-active'  %>
     <br>
   </div>
   <br>
@@ -18,6 +18,7 @@
       <br>
     <% end %>
   </text>
+  <br>
   
   <sub-header>Changes: <br></sub-header>
     <% search = @updates.find_by_email(@parent_user.email)
@@ -25,51 +26,53 @@
         <tab></tab>
         <text>No upcoming schedule changes</text>
         <br>
+      <% else %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-default">
+              <tr>
+                <th> </th>
+                <th>Hours</th>
+                <th>Approved?</th>
+                <th>Reason</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @updates.where(email: @parent_user.email).find_each do |time| %>
+              <tr>
+                <td>
+                  <% if (time.action == 'Delete') %>
+                    -
+                  <% else %>
+                    +
+                  <% end %>
+                </td>
+                <td>
+                  <% timeDetails = beautify_time(time) %>
+                  <%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
+                </td>
+                <td>
+                  <% if (time.approved == 1) %>
+                    Yes
+                  <% else %>
+                    No
+                  <% end %>
+                </td>
+                <td>
+                  <%= time.msg %>
+                </td>
+                <td>
+                  <%= link_to 'Delete', update_path(time), :class => 'btn btn-link-active', :method => :delete, :confirm => 'Are you sure?' %></text>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
     <% end %>
     
-    <div class="table-responsive">
-    <table class="table table-hover"> <!--delete "table-hover" if hover highlight is annoying-->
-      <thead class="thead-default">
-        <tr>
-          <th> </th>
-          <th>Hours</th>
-          <th>Approved?</th>
-          <th>Reason</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @updates.where(email: @parent_user.email).find_each do |time| %>
-        <tr>
-          <td>
-            <% if (time.action == 'Delete') %>
-              -
-            <% else %>
-              +
-            <% end %>
-          </td>
-          <td>
-            <% timeDetails = beautify_time(time) %>
-            <%= time.dow %> <%= time.date %> @ <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %></text>
-          </td>
-          <td>
-            <% if (time.approved == 1) %>
-              Yes
-            <% else %>
-              No
-            <% end %>
-          </td>
-          <td>
-            <%= time.msg %>
-          </td>
-          <td>
-            <%= link_to 'Delete', update_path(time), :class => 'btn btn-link-active', :method => :delete, :confirm => 'Are you sure?' %></text>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
+    
 
   <sub-header>Courses: <br></sub-header>
   <text id="courses">

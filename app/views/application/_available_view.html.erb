@@ -15,8 +15,8 @@
       				<p>  CSCE <%= (@peer_teachers.find_by email: pt).courselist %>   </p>
               <h4>Office Hours:</h4> 
     					  <% @office_hours.where(email: pt).find_each do |time| %>
-    				      <% timeDetails = beautify_time(time) %>
-    				      <%= time.dow %> <%= timeDetails[0] %>:<%= timeDetails[1] %><%= timeDetails[2] %> - <%= timeDetails[3] %>:<%= timeDetails[4] %><%= timeDetails[5] %>
+    				      <% time_details = beautify_time(time) %>
+    				      <%= time.dow %> <%= time_details[0] %>:<%= time_details[1] %><%= time_details[2] %> - <%= time_details[3] %>:<%= time_details[4] %><%= time_details[5] %>
                   <br>
                 <% end %>
                 <%= link_to 'Take Survey', "https://docs.google.com/a/tamu.edu/forms/d/e/1FAIpQLScPuUGSpwBBni8c2NOR0GJqsWbADBKjdaOVahi1VjDN26tfgA/viewform?usp=pp_url&entry.110379020=" + (@time - (60 * 60 * 5)).to_s[0..15] + "&entry.788071172&entry.197140045&entry.2071741446&entry.1576936250=" + (@peer_teachers.find_by email: pt).name + "&entry.99313458", target: :_blank, class: 'btn btn-link-border'  %>

@@ -22,17 +22,19 @@ class Users::SessionsController < Devise::SessionsController
     yield resource if block_given?
     #Correct controller 
     #byebug
-    #redirect_to edit_user_password_path 
-    if authenticate_admin?
-      #redirect_to edit_user_password_path, alert: "You must change your password before login "
-      #self.after_sign_in_path_for
-      redirect_to admin_root_path
-    elsif user_signed_in? 
-    #  self.after_sign_in_path_for( resource, login_hub_index_path )
-      redirect_to login_hub_index_path
+    if resource.meta_type == "Administrator"
+      if current_user.sign_in_count == 1 
+        redirect_to edit_user_registration_path
+      else
+        redirect_to admin_root_path 
+      end
+    elsif resource.meta_type == "PeerTeacherLogin"
+      redirect_to login_hub_index_path 
+    else
+      redirect_to root_path 
     end
+    
   end
-end
 
   # DELETE /resource/sign_out
   def destroy
@@ -40,6 +42,7 @@ end
     set_flash_message! :notice, :signed_out if signed_out
     yield if block_given?
     respond_to_on_destroy
+  end
 
   protected
 
@@ -63,11 +66,7 @@ end
   end
 
   private
-
-  # Check if there is no signed in user before doing the sign out.
-  #
-  # If there is no signed in user, it will set the flash message and redirect
-  # to the after_sign_out path.
+  
   def verify_signed_out_user
     if all_signed_out?
       set_flash_message! :notice, :already_signed_out

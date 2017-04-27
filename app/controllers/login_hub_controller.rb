@@ -1,10 +1,11 @@
 class LoginHubController < PeerTeacherController
   before_action :authenticate_user!
+  before_action :after_sign_in_path_for
   #will be displayed in the /login_hub/index 
   def index
     #byebug
-    @parent_user = current_user   #assign the login attributes to the parent_user instance 
-    @user = PeerTeacherLogin.find( current_user.meta_id )
+    @parent_user = current_user; 
+    @user = PeerTeacherLogin.find( current_user.meta_id );
     
     @office_hours = OfficeHour.all
     @peer_teachers = PeerTeacher.all

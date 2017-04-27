@@ -4,7 +4,7 @@ require 'json'
 
 class PeerTeacherController < ApplicationController
   skip_before_action :require_login, only: [:index, :show, :new, :create, :edit, :update]
-
+  skip_before_action :after_sign_in_path_for
   helper_method :sign_user_off
   
   def sign_user_off 
