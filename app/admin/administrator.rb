@@ -1,5 +1,5 @@
 ActiveAdmin.register Administrator do
-  config.sort_order = 'name_asc'
+  #config.sort_order = 'name_asc'
   controller do 
     def create
       @administrator = Administrator.new( permitted_params[ :administrator ])

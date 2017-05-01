@@ -19,7 +19,6 @@ Rails.application.routes.draw do
         get :cancel
     end
       
-    
     get 'users/sign_out' => 'users/sessions#destroy'
     get 'users/sign_in'  => 'home#index'
     get 'users/password/edit' => 'users/password#edit'
