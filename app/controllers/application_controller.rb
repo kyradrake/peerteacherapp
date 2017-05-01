@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
   private
   
    def require_login   #login will go here because of before_action
-    if !user_signed_in?          #if the user IS NOT signed in 
+    if !user_signed_in?          #if the user IS NOT signed in
+      flash[:error] = "You must login before proceeding"
       redirect_to root_path
     end
   end

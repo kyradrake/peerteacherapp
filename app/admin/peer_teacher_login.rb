@@ -1,5 +1,5 @@
 ActiveAdmin.register PeerTeacherLogin do
-  config.sort_order = 'name_asc'
+  #config.sort_order = 'name_asc'
   controller do 
     def create
       @peer_teacher_login = PeerTeacherLogin.new( permitted_params[ :peer_teacher_login ])

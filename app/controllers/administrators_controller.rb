@@ -59,7 +59,7 @@ class AdministratorsController < InheritedResources::Base
 private
   
   def set_administrator
-    @admin = Administrator.find( params[:id] ) 
+    @admin = Administrator.find( params[:id] )
   end
 
   def administrator_params

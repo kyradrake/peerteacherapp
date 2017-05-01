@@ -23,7 +23,7 @@ class Users::SessionsController < Devise::SessionsController
     #Correct controller 
     #byebug
     if resource.meta_type == "Administrator"
-      if current_user.sign_in_count == 1 
+      if current_user.sign_in_count == 1  #change == to > 
         redirect_to edit_user_registration_path
       else
         redirect_to admin_root_path 

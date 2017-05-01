@@ -3,10 +3,8 @@
     <div class="form-group">
       
       <div id="flash" class="flash_messages">
-        <% flash.each do |name,msg| %>
-          <div class='alert alert-<%= name %>' >
-            <%= msg %>
-          </div>
+        <% if flash[:notice] %>
+          <div class="notice"><%= flash[:notice] %></div>
         <% end %>
       </div>
       

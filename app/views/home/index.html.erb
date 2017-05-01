@@ -31,13 +31,27 @@
         <div class="modal-dialog modal-md" style="background-color: #595959">
           <div class="w3-container w3-center">
             <span onclick="document.getElementById('login modal').style.display='none'" class="w3-closebtn w3-hover-text-grey" style="color: #BFBFBF">x</span>
-            
             <div class = "w3-container w3-center" style="padding: 16px">
               <%= render 'login_modal' %>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Flash Messages --> 
+      
+      <div id="flash" class="flash_messages">
+        <% if flash[:alert] %>
+          <div class="notice"><%= flash[:error] %></div>
+        <% end %>
+      </div>
+      
+      <script type="text/javascript">
+        $(document).ready( function(){
+          setTimeout(function(){
+            $("#flash").remove();}, 5000);
+        })
+      </script>
 
       <!-- View Button Bar -->
       <div class="container-fluid text-center">
