@@ -18,7 +18,12 @@ Happy coding!
 The Cloud9 IDE team
 
 
-## Support & Documentation
+To deploy to Heroku:
 
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+1. Add your recent changes: git add -A
+2. Commit the staged changes: git -commit -m "Commit message."
+3. (Optional) Push the commit to the repository: git push
+4. Push the commit to Heroku: git push heroku
+5. Reset the database: heroku run rake db:reset db:migrate
+6. (Optional) If you have anything in the seeds.rb file and want to seed the database run this command: heroku run rake db:seed
+7. Open the Heroku website 
