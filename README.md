@@ -21,7 +21,7 @@ The Cloud9 IDE team
 To deploy to Heroku:
 
 1. Add your recent changes: git add -A
-2. Commit the staged changes: git commit -m "Commit message."
+2. Commit the staged changes: git -commit -m "Commit message."
 3. (Optional) Push the commit to the repository: git push
 4. Push the commit to Heroku: git push heroku
 5. Reset the database: heroku run rake db:reset db:migrate
